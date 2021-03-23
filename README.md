@@ -1,2 +1,1 @@
-# erp-spring
-Enterprise Resource Planning
+# Enterprise Resource Planning
