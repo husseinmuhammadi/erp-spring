@@ -1,0 +1,22 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/firmco
+    username: postgres
+    password: postgres
+    initialization-mode: always
+    initialize: true
+    continue-on-error: true
+
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      show-sql: true
+      ddl-auto: update
+
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Home</title>
+    <th:block th:replace="fragments/header::head"/>
+</head>
+<body>
+<th:block th:replace="fragments/header::header"/>
+<div class="container">
+    <div>
+    <a th:href="@{/product/list}" class="badge badge-primary">Product List</a>
+    <a th:href="@{/product/entry}" class="badge badge-secondary">Add New Product</a>
+    </div>
+    <div>
+        <a th:href="@{/card/issue}" class="badge badge-primary">Issue New Card</a>
+        <a th:href="@{/card/info}" class="badge badge-primary">Inquiry Card Info</a>
+    </div>
+    <div>
+        <a th:href="@{transaction/payment}" class="badge badge-primary">Payment</a>
+        <a th:href="@{transaction/deposit}" class="badge badge-primary">Deposit</a>
+        <a th:href="@{transaction/cashout}" class="badge badge-primary">Cashout</a>
+        <a th:href="@{transaction/purchase}" class="badge badge-primary">Purchase</a>
+        <a th:href="@{transaction/purchase}" class="badge badge-primary">Purchase</a>
+        <a th:href="@{transaction/balanceInquiry}" class="badge badge-primary">Balance Inquiry</a>
+        <a th:href="@{transaction/statement}" class="badge badge-primary">Statement</a>
+        <a th:href="@{transaction/fundTransfer}" class="badge badge-primary">Fund Transfer</a>
+    </div>
+</div>
+<th:block th:replace="fragments/footer::footer"/>
+</body>
+</html>
