@@ -2,12 +2,14 @@ package com.digiboy.erp.to;
 
 import com.digiboy.erp.to.base.EntityBase;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "product")
-@SequenceGenerator(name = "GGG", sequenceName = "pseq")
-public class Product extends EntityBase<Long> {
+@Table(name = "product_detail")
+public class ProductDetail extends EntityBase {
 
     @Column(length = 100)
     private String name;
