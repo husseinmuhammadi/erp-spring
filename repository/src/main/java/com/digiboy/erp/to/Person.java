@@ -1,12 +1,13 @@
 package com.digiboy.erp.to;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@SequenceGenerator(name = "X", sequenceName = "SEQ_PERSON")
 public class Person {
 
     @Id
+    @GeneratedValue(generator = "X",strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String name;
