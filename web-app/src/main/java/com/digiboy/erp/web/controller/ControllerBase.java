@@ -3,12 +3,14 @@ package com.digiboy.erp.web.controller;
 import com.digiboy.erp.api.GeneralService;
 import com.digiboy.erp.dto.CompanyDTO;
 import com.digiboy.erp.dto.DTOBase;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,7 +21,12 @@ import java.util.stream.IntStream;
 
 public abstract class ControllerBase<T extends DTOBase> {
 
-    abstract Logger getLogger();
+    protected final Logger logger;
+
+    public ControllerBase(Logger logger) {
+        this.logger = logger;
+    }
+
     abstract GeneralService<T> service();
 
     @GetMapping("/index")
@@ -49,9 +56,24 @@ public abstract class ControllerBase<T extends DTOBase> {
         return entry();
     }
 
+    @PostMapping("/save")
+    public String save(@ModelAttribute("model") T dto) {
+        try {
+            dto = service().save(dto);
+            logger.info(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(dto));
+            return indexController();
+        } catch (Exception e) {
+            logger.error("Error during saving entity", e);
+            return null;
+        }
+    }
 
+    @ModelAttribute("model")
+    public abstract DTOBase getModel();
 
     abstract String index();
+
     abstract String entry();
+
     abstract String indexController();
 }

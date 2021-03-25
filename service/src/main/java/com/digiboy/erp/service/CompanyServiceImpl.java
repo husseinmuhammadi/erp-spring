@@ -33,8 +33,6 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public CompanyDTO save(CompanyDTO dto) {
-        logger.info(dto.getName());
-        logger.info(mapper.from(dto).getName());
         return mapper.to(repository.save(mapper.from(dto)));
     }
 }
