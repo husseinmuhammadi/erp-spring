@@ -13,7 +13,6 @@ import java.lang.reflect.Field;
 import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 
-
 @Configuration
 public class LoggingConfiguration {
     @Bean
