@@ -21,7 +21,7 @@
             </thead>
             <tbody>
             <tr th:if="${#lists.isEmpty(page.content)}">
-                <td colspan="2">No data available</td>
+                <td colspan="3">No data available</td>
             </tr>
             <tr th:each="company : ${page.content}">
                 <th scope="row">
@@ -29,7 +29,9 @@
                 </th>
                 <td><span th:text="${company.name}"></span></td>
                 <td>
-                    <a class="btn btn-link" th:href="@{'/admin/company/remove/' + ${company.id}}">Remove</a>
+                    <div th:with="deleteUrl='/admin/company/remove/' + ${company.id}">
+                        <a class="btn btn-link" th:href="@{${deleteUrl}(size = ${page.size}, page = ${page.number + 1})}">Remove</a>
+                    </div>
                 </td>
             </tr>
             </tbody>
