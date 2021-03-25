@@ -1,7 +1,7 @@
 package com.digiboy.erp.web.controller;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin/company")
 public class CompanyController {
 
-    private Logger logger = LoggerFactory.getLogger(CompanyController.class);
+    // private Logger logger = LoggerFactory.getLogger(CompanyController.class);
+    private final Logger logger;
+
+    @Autowired
+    public CompanyController(Logger logger) {
+        this.logger = logger;
+    }
 
     @GetMapping("/index")
     public String index() {
