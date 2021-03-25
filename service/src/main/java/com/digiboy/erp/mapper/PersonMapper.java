@@ -5,9 +5,5 @@ import com.digiboy.erp.to.Person;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface PersonMapper {
-
-    Person from(PersonDTO personDTO);
-
-    PersonDTO to(Person person);
+public interface PersonMapper extends EntityMapper<Person, PersonDTO> {
 }

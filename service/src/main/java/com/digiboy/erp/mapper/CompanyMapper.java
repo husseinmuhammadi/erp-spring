@@ -8,8 +8,4 @@ import javax.persistence.Converter;
 
 @Mapper
 public interface CompanyMapper extends EntityMapper<Company, CompanyDTO> {
-
-    CompanyDTO from(Company company);
-
-    Company to(CompanyDTO companyDTO);
 }

@@ -1,14 +1,13 @@
 package com.digiboy.erp.to;
 
-import javax.persistence.*;
+import com.digiboy.erp.to.base.EntityBase;
+
+import javax.persistence.Entity;
+import javax.persistence.SequenceGenerator;
 
 @Entity
-@SequenceGenerator(name = "X", sequenceName = "SEQ_PERSON")
-public class Person {
-
-    @Id
-    @GeneratedValue(generator = "X",strategy = GenerationType.SEQUENCE)
-    private Long id;
+@SequenceGenerator(name = "SEQUENCE_GENERATOR", sequenceName = "PERSON_SEQ")
+public class Person extends EntityBase {
 
     private String name;
 
@@ -18,13 +17,5 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }

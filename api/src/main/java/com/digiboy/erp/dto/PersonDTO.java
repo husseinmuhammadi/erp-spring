@@ -1,6 +1,6 @@
 package com.digiboy.erp.dto;
 
-public class PersonDTO {
+public class PersonDTO extends DTOBase {
     private Long id;
 
     private String name;

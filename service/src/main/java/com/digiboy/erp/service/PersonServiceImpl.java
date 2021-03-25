@@ -18,6 +18,6 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void save(PersonDTO personDTO) {
-        repository.save(mapper.from(personDTO));
+        repository.save(mapper.to(personDTO));
     }
 }
