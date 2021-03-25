@@ -4,10 +4,12 @@ import com.digiboy.erp.dto.CompanyDTO;
 import com.digiboy.erp.to.Company;
 import org.mapstruct.Mapper;
 
+import javax.persistence.Converter;
+
 @Mapper
-public interface CompanyMapper {
+public interface CompanyMapper extends EntityMapper<Company, CompanyDTO> {
 
-    Company from(CompanyDTO companyDTO);
+    CompanyDTO from(Company company);
 
-    CompanyDTO to(Company company);
+    Company to(CompanyDTO companyDTO);
 }

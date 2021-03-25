@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -61,7 +58,7 @@ public abstract class ControllerBase<T extends DTOBase> {
         try {
             dto = service().save(dto);
             logger.info(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(dto));
-            return indexController();
+            return "redirect:"+indexController();
         } catch (Exception e) {
             logger.error("Error during saving entity", e);
             return null;
@@ -70,6 +67,17 @@ public abstract class ControllerBase<T extends DTOBase> {
 
     @ModelAttribute("model")
     public abstract DTOBase getModel();
+
+    @GetMapping("/remove/{id}")
+    public String remove(@PathVariable Long id,
+                         @RequestParam("page") Optional<Integer> page,
+                         @RequestParam("size") Optional<Integer> size) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+
+        service().remove(id);
+        return "redirect:" + indexController() + "?size=" + pageSize + "&page=" + currentPage;
+    }
 
     abstract String index();
 

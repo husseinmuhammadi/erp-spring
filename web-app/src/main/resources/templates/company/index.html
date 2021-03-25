@@ -28,11 +28,14 @@
                 </th>
                 <td><span th:text="${company.name}"></span></td>
                 <td>
-                    <a class="btn btn-link" th:href="@{'/user/remove/' + ${company.id}}">Remove</a>
+                    <a class="btn btn-link" th:href="@{'/admin/company/remove/' + ${company.id}}">Remove</a>
                 </td>
             </tr>
             </tbody>
         </table>
+    </div>
+    <div role="group">
+        <a class="btn btn-outline-primary" th:href="@{/admin/company/entry}">Add</a>
     </div>
 </div>
 <th:block th:replace="fragments/footer::footer"/>

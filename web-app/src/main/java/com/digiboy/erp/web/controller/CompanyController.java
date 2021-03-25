@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin/company")
-public class CompanyController extends ControllerBase {
+public class CompanyController extends ControllerBase<CompanyDTO> {
 
     @Autowired
     private CompanyService service;
@@ -44,6 +44,6 @@ public class CompanyController extends ControllerBase {
 
     @Override
     String indexController() {
-        return "redirect:/admin/company/index";
+        return "/admin/company/index";
     }
 }
