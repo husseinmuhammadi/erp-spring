@@ -34,7 +34,7 @@ public abstract class ControllerBase<T extends DTOBase> {
         int pageSize = size.orElse(5);
 
         Page<T> tPage = service().findAll(PageRequest.of(currentPage - 1, pageSize));
-        model.addAttribute("tPage", tPage);
+        model.addAttribute("page", tPage);
         int totalPages = tPage.getTotalPages();
 
         if (totalPages > 0) {
