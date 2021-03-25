@@ -1,11 +1,15 @@
 package com.digiboy.erp.web.controller;
 
 import com.digiboy.erp.api.GeneralService;
+import com.digiboy.erp.dto.CompanyDTO;
 import com.digiboy.erp.dto.DTOBase;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -15,6 +19,7 @@ import java.util.stream.IntStream;
 
 public abstract class ControllerBase<T extends DTOBase> {
 
+    abstract Logger getLogger();
     abstract GeneralService<T> service();
 
     @GetMapping("/index")
@@ -38,5 +43,15 @@ public abstract class ControllerBase<T extends DTOBase> {
         return index();
     }
 
+    @GetMapping("/entry")
+    public String entry(Model model) {
+        model.addAttribute("company", new CompanyDTO());
+        return entry();
+    }
+
+
+
     abstract String index();
+    abstract String entry();
+    abstract String indexController();
 }

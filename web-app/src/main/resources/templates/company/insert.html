@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Entry</title>
+    <div th:replace="fragments/header::head"></div>
+</head>
+<body>
+<div th:replace="fragments/header::header"></div>
+<div class="container">
+    <h1>Company Entry</h1>
+
+    <form action="#" th:action="@{/admin/company/save}" th:object="${company}" method="post">
+        <p>
+            Name: <input type="text" th:field="*{name}">
+        </p>
+        <p>
+            <input type="submit" value="Submit"/>
+            <a th:href="@{/admin/company/index}">Cancel</a>
+        </p>
+    </form>
+</div>
+<div th:replace="fragments/footer::footer"></div>
+</body>
+</html>

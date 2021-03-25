@@ -1,5 +1,7 @@
 package com.digiboy.erp.to.base;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
@@ -7,6 +9,7 @@ import javax.persistence.MappedSuperclass;
 public class EntityBase {
 
     @Id
+    @GeneratedValue(generator = "SEQUENCE_GENERATOR", strategy = GenerationType.SEQUENCE)
     private Long id;
 
     public Long getId() {
