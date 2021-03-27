@@ -5,7 +5,9 @@ import com.digiboy.erp.dto.CompanyDTO;
 import com.digiboy.erp.mapper.CompanyMapper;
 import com.digiboy.erp.mapper.EntityMapper;
 import com.digiboy.erp.repository.CompanyRepository;
+import com.digiboy.erp.repository.EntityStateHistoryRepository;
 import com.digiboy.erp.to.Company;
+import com.digiboy.erp.to.EntityStateHistory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +18,9 @@ public class CompanyServiceImpl extends GeneralServiceImpl<Company, CompanyDTO> 
 
     @Autowired
     private CompanyRepository repository;
+
+    @Autowired
+    private EntityStateHistoryRepository entityStateHistoryRepository;
 
     @Autowired
     private CompanyMapper mapper;
@@ -35,5 +40,17 @@ public class CompanyServiceImpl extends GeneralServiceImpl<Company, CompanyDTO> 
         return mapper;
     }
 
+    @Override
+    public CompanyDTO save(CompanyDTO dto) {
+        CompanyDTO companyDTO = super.save(dto);
 
+        Company company = mapper.to(companyDTO);
+
+        EntityStateHistory entityStateHistory = new EntityStateHistory();
+        entityStateHistory.setState("E");
+        entityStateHistory.setEntity(company);
+        entityStateHistoryRepository.save(entityStateHistory);
+
+        return companyDTO;
+    }
 }
