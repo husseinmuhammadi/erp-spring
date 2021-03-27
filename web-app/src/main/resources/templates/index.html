@@ -9,8 +9,11 @@
 <th:block th:replace="fragments/header::header"/>
 <div class="container">
     <div>
-    <a th:href="@{/product/list}" class="badge badge-primary">Product List</a>
-    <a th:href="@{/product/entry}" class="badge badge-secondary">Add New Product</a>
+        <a th:href="@{/admin/company/index}" class="badge badge-primary">Company List</a>
+    </div>
+    <div>
+        <a th:href="@{/product/list}" class="badge badge-primary">Product List</a>
+        <a th:href="@{/product/entry}" class="badge badge-secondary">Add New Product</a>
     </div>
     <div>
         <a th:href="@{/card/issue}" class="badge badge-primary">Issue New Card</a>
