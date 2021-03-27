@@ -6,6 +6,7 @@
 Our data layer mainly contains our JPA entities and Spring Data repositories. 
 Our testing efforts in this layer concentrate on testing the interaction between 
 our repositories and the underlying database.  
+
 Spring Boot provides the **@DataJpaTest** annotation to set up a stripped application context 
 with only the beans needed for JPA, Hibernate and an embedded database.
 
