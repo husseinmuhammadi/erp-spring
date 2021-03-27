@@ -4,10 +4,12 @@ import com.digiboy.erp.to.base.EntityBase;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "product")
+@SequenceGenerator(name = "SEQUENCE_GENERATOR", sequenceName = "PRODUCT_SEQ")
 public class Product extends EntityBase {
 
     @Column(length = 100)

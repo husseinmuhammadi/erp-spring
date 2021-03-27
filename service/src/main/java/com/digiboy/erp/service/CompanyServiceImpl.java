@@ -8,15 +8,11 @@ import com.digiboy.erp.repository.CompanyRepository;
 import com.digiboy.erp.to.Company;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CompanyServiceImpl extends GeneralServiceImpl<Company, CompanyDTO> implements CompanyService {
-
-    private final Logger logger;
 
     @Autowired
     private CompanyRepository repository;
@@ -26,7 +22,7 @@ public class CompanyServiceImpl extends GeneralServiceImpl<Company, CompanyDTO> 
 
     @Autowired
     public CompanyServiceImpl(Logger logger) {
-        this.logger = logger;
+        super(logger);
     }
 
     @Override
