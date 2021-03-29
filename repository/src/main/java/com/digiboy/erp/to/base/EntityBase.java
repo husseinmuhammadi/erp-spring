@@ -9,6 +9,9 @@ public class EntityBase {
     @GeneratedValue(generator = "SEQUENCE_GENERATOR", strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @Version
+    private Long version;
+
     @Column(name = "state", length = 40)
     private String state;
 
@@ -26,5 +29,13 @@ public class EntityBase {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }

@@ -13,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class CompanyServiceImpl extends GeneralServiceImpl<Company, CompanyDTO> implements CompanyService {
 
     @Autowired
@@ -41,10 +44,13 @@ public class CompanyServiceImpl extends GeneralServiceImpl<Company, CompanyDTO> 
     }
 
     @Override
-    public CompanyDTO save(CompanyDTO dto) {
-        CompanyDTO companyDTO = super.save(dto);
-
+    public CompanyDTO save(CompanyDTO companyDTO) {
         Company company = mapper.to(companyDTO);
+
+        repository.save(company);
+
+        if (companyDTO.getName().startsWith("E"))
+            throw new RuntimeException();
 
         EntityStateHistory entityStateHistory = new EntityStateHistory();
         entityStateHistory.setState("E");

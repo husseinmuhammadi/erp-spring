@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "company")
+@DiscriminatorValue("C")
 @SequenceGenerator(name = "SEQUENCE_GENERATOR", sequenceName = "COMPANY_SEQ")
 public class Company extends EntityBase implements FSM {
 
