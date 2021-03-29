@@ -5,18 +5,18 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/admin
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://localhost:5432/mydb1
+    username: myusr
+    password: 123456
     initialization-mode: always
     initialize: true
     continue-on-error: true
 
   jpa:
-    properties:
-      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
     hibernate:
-      show-sql: true
       ddl-auto: update
-
-
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: myschema
