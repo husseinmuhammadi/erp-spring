@@ -1,16 +1,15 @@
 package com.digiboy.erp.to;
 
 import com.digiboy.erp.to.base.EntityBase;
+import com.digiboy.erp.to.base.FSM;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "company")
+@DiscriminatorValue("C")
 @SequenceGenerator(name = "SEQUENCE_GENERATOR", sequenceName = "COMPANY_SEQ")
-public class Company extends EntityBase {
+public class Company extends EntityBase implements FSM {
 
     @Column(name = "name", length = 100)
     private String name;

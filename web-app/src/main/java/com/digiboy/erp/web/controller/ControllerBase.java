@@ -75,6 +75,8 @@ public abstract class ControllerBase<T extends DTOBase> {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(5);
 
+        logger.info("-----------------remove---------------");
+
         service().remove(id);
         return "redirect:" + indexController() + "?size=" + pageSize + "&page=" + currentPage;
     }

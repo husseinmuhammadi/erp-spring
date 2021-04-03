@@ -38,6 +38,7 @@ public abstract class GeneralServiceImpl<T extends EntityBase, DT extends DTOBas
     @Override
     public void remove(Long id) {
         getRepository().deleteById(id);
+        logger.info("+++++++++++++++++--------------------");
     }
 
     @Override
