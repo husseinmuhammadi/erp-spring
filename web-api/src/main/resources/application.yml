@@ -5,8 +5,8 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/mydb1
-    username: myusr
+    url: jdbc:postgresql://localhost:5432/eap
+    username: eap
     password: 123456
     initialization-mode: always
     initialize: true
@@ -19,4 +19,4 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        default_schema: myschema
+        default_schema: eap
