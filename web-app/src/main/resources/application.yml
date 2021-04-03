@@ -5,7 +5,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/eap
+    url: jdbc:postgresql://localhost:45432/eap
     username: eap
     password: 123456
     initialization-mode: always

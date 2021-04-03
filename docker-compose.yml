@@ -1,19 +1,18 @@
 version: '3.8'
 services:
-  mongo:
-    image: mongo:4.4.4
-    container_name: mongo
-    ports:
-      - 27017:27017
+  # mongo:
+  #   image: mongo:4.4.4
+  #   container_name: eap-mongo
+  #   ports:
+  #     - 47017:27017
   postgres:
-    image: postgres:13.2
-    container_name: postgres
+    image: postgres:13.1
+    container_name: eap-postgres
     volumes:
-      - ./init.sh:/docker-entrypoint-initdb.d/init.sh
+      - ./init.sh:/docker-entrypoint-initdb.d/init.sh      
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - 5432:5432
-
+      - 45432:5432
