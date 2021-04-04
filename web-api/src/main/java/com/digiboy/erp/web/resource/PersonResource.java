@@ -29,7 +29,6 @@ public class PersonResource {
 
     @PostMapping
     public ResponseEntity<PersonDTO> save(@RequestBody PersonDTO personDTO) {
-        logger.info("-------");
         return ResponseEntity.ok(service.save(personDTO));
     }
 }
