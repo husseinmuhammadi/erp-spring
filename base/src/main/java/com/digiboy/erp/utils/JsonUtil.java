@@ -2,24 +2,20 @@ package com.digiboy.erp.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.boot.jackson.JsonObjectDeserializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class JsonHelper {
+public class JsonUtil {
 
-    private static final ObjectMapper mapper;
-
-    static {
-        mapper = new ObjectMapper();
-    }
+    private static Logger logger = LoggerFactory.getLogger(JsonUtil.class);
 
     public static String jsonString(Object object) {
         try {
+            ObjectMapper mapper = new ObjectMapper();
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            logger.warn(e.getMessage(), e);
         }
-
-        return "";
+        return object.toString();
     }
-
 }

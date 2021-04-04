@@ -2,15 +2,13 @@ package com.digiboy.erp.repository;
 
 import com.digiboy.erp.to.EntityStateHistory;
 import com.digiboy.erp.to.Product;
-import com.digiboy.erp.utils.JsonHelper;
+import com.digiboy.erp.utils.JsonUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class EntityStateHistoryRepositoryTest {
@@ -37,7 +35,7 @@ class EntityStateHistoryRepositoryTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
         entityStateHistoryRepository.findAll().stream()
-                .map(JsonHelper::jsonString)
+                .map(JsonUtil::jsonString)
                 .forEach(logger::info);
     }
 }
