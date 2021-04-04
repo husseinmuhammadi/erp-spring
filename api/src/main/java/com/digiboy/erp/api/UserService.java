@@ -17,4 +17,6 @@ public interface UserService {
     UserDTO save(UserDTO dto);
 
     void remove(String username);
+
+    boolean exists(String username);
 }
