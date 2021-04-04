@@ -1,9 +1,9 @@
 package com.digiboy.erp.mapper;
 
 import com.digiboy.erp.dto.DTOBase;
-import com.digiboy.erp.to.base.EntityBase;
+import com.digiboy.erp.to.base.TEntity;
 
-public interface EntityMapper<T extends EntityBase, DT extends DTOBase> {
+public interface EntityMapper<T extends TEntity, DT extends DTOBase> {
 
     /**
      * to entity

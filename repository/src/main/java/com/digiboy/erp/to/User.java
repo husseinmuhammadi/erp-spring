@@ -1,12 +1,14 @@
 package com.digiboy.erp.to;
 
+import com.digiboy.erp.to.base.TEntity;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements TEntity {
 
     @Id
     private String username;

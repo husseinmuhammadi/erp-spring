@@ -3,7 +3,7 @@ package com.digiboy.erp.to.base;
 import javax.persistence.*;
 
 @MappedSuperclass
-public class EntityBase {
+public class EntityBase implements TEntity {
 
     @Id
     @GeneratedValue(generator = "SEQUENCE_GENERATOR", strategy = GenerationType.SEQUENCE)
