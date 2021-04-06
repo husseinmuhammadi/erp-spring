@@ -12,6 +12,7 @@
     <artifactId>erp-web-api</artifactId>
 
     <build>
+        <finalName>erp-web-api</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
