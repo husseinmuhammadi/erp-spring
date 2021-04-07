@@ -6,6 +6,10 @@ services:
       context: .
     image: erp-web-api
     container_name: erp-web-api
+    environment:
+      - DS_URL=jdbc:postgresql://localhost:45432/firmco
+      - DS_USERNAME=firmco
+      - DS_PASSWORD=123456
     ports:
       - 8080:8080
       - 8090:8090

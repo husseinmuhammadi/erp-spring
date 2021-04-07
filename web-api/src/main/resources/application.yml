@@ -14,11 +14,21 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         default_schema: master
+#---
+#spring:
+#  profiles: dev
+#  datasource:
+#    url: jdbc:postgresql://localhost:45432/firmco
+#    username: firmco
+#    password: 123456
+#    initialization-mode: always
+#    initialize: true
+#    continue-on-error: true
 ---
 spring:
-  profiles: dev
+  profiles: stage
   datasource:
-    url: jdbc:postgresql://localhost:45432/firmco
+    url: jdbc:postgresql://192.168.20.15:45432/firmco
     username: firmco
     password: 123456
     initialization-mode: always
@@ -28,9 +38,9 @@ spring:
 spring:
   profiles: prod
   datasource:
-    url: jdbc:postgresql://localhost:5432/firmco
-    username: firmco
-    password: 123456
+    url: ${DS_URL}
+    username: ${DS_USERNAME}
+    password: ${DS_PASSWORD}
     initialization-mode: always
     initialize: true
     continue-on-error: true

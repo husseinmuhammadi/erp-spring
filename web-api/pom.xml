@@ -86,6 +86,12 @@
             </properties>
         </profile>
         <profile>
+            <id>stage</id>
+            <properties>
+                <active.profiles>stage</active.profiles>
+            </properties>
+        </profile>
+        <profile>
             <id>prod</id>
             <properties>
                 <active.profiles>prod</active.profiles>

@@ -11,7 +11,7 @@ COPY service service
 COPY repository repository
 COPY web-api web-api
 COPY web-app web-app
-RUN mvn package
+RUN mvn package -P stage
 
 FROM openjdk:11
 WORKDIR /workspace
