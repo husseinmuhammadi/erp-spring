@@ -7,6 +7,9 @@ services:
     image: erp-web-api
     container_name: erp-web-api
     restart: always
+    depends_on:
+      - firmco-mongo
+      - firmco-postgres
     environment:
       - DS_URL=jdbc:postgresql://localhost:45432/firmco
       - DS_USERNAME=firmco
