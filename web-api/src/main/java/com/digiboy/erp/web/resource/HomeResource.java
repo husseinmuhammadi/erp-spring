@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HomeResource {
 
-    @GetMapping("/home")
+    @GetMapping({"/", "/home", "/index"})
     @ResponseBody
     public String index() {
         return "Server is up!";

@@ -11,7 +11,7 @@ services:
       - firmco-mongo
       - firmco-postgres
     environment:
-      - DS_URL=jdbc:postgresql://firmco-postgres:45432/firmco
+      - DS_URL=jdbc:postgresql://firmco-postgres:5432/firmco
       - DS_USERNAME=firmco
       - DS_PASSWORD=123456
     ports:
