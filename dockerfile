@@ -15,8 +15,8 @@ RUN mvn package -P stage
 
 FROM openjdk:11
 WORKDIR /workspace
-ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8090
+ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n
 COPY --from=build /workspace/web-api/target/erp-web-api.jar erp-web-api.jar
 ENTRYPOINT ["java", "-jar", "erp-web-api.jar"]
 EXPOSE 8080
-EXPOSE 8090
+EXPOSE 8000

@@ -11,12 +11,12 @@ services:
       - firmco-mongo
       - firmco-postgres
     environment:
-      - DS_URL=jdbc:postgresql://localhost:45432/firmco
+      - DS_URL=jdbc:postgresql://firmco-postgres:45432/firmco
       - DS_USERNAME=firmco
       - DS_PASSWORD=123456
     ports:
       - 8080:8080
-      - 8090:8090
+      - 8000:8000
   firmco-mongo:
     image: mongo:4.4.4
     container_name: eap-mongo
