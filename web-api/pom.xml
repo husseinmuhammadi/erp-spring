@@ -74,4 +74,22 @@
             <version>0.9.1</version>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <active.profiles>dev</active.profiles>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <active.profiles>prod</active.profiles>
+            </properties>
+        </profile>
+    </profiles>
 </project>
