@@ -1,7 +1,7 @@
 FROM maven:3.6.3-jdk-11 as build
-# RUN mkdir -p /root/.m2 \
-#     && mkdir /root/.m2/repository
-# COPY maven/conf/settings.xml /root/.m2
+RUN mkdir -p /root/.m2 \
+    && mkdir /root/.m2/repository
+COPY settings.xml /root/.m2
 WORKDIR /workspace
 COPY pom.xml pom.xml
 COPY base base
@@ -11,7 +11,7 @@ COPY service service
 COPY repository repository
 COPY web-api web-api
 COPY web-app web-app
-RUN mvn package -P dev
+RUN mvn package
 
 FROM openjdk:11
 WORKDIR /workspace

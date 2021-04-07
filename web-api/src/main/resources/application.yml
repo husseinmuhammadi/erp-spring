@@ -4,14 +4,8 @@ server:
     context-path: /
 
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/firmco
-    username: firmco
-    password: 123456
-    initialization-mode: always
-    initialize: true
-    continue-on-error: true
-
+  profiles:
+    active: dev
   jpa:
     show-sql: true
     hibernate:
@@ -20,3 +14,23 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         default_schema: master
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:postgresql://localhost:45432/firmco
+    username: firmco
+    password: 123456
+    initialization-mode: always
+    initialize: true
+    continue-on-error: true
+---
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:postgresql://localhost:5432/firmco
+    username: firmco
+    password: 123456
+    initialization-mode: always
+    initialize: true
+    continue-on-error: true
