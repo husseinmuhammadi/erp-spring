@@ -1,16 +1,11 @@
 package com.digiboy.erp.dto;
 
-public class Role extends DTOBase {
+import java.util.Date;
 
+public class PayStubDTO extends DTOBase {
     private Long id;
     private String name;
-
-    public Role() {
-    }
-
-    public Role(String name) {
-        this.name = name;
-    }
+    private Date date;
 
     public Long getId() {
         return id;
@@ -26,5 +21,13 @@ public class Role extends DTOBase {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

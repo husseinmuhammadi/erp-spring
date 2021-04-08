@@ -2,6 +2,7 @@ package com.digiboy.erp.repository;
 
 import com.digiboy.erp.to.Employee;
 import com.digiboy.erp.to.Person;
+import com.digiboy.erp.utils.JsonUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -37,18 +38,10 @@ class EmployeeRepositoryTest {
 
         employeeRepository.save(employee);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-
         logger.info("---> {}", employeeRepository.findAll().size());
 
         employeeRepository.findAll().forEach(emp -> {
-            logger.info("+++++++++++++++++++++++++++");
-            try {
-                logger.info(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(emp));
-            } catch (JsonProcessingException e) {
-                logger.warn(e.getMessage(), e);
-            }
+            logger.info(JsonUtil.jsonString(emp));
         });
-        logger.info("----------------------");
     }
 }

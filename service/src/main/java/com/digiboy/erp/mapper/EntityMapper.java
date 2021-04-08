@@ -8,10 +8,10 @@ public interface EntityMapper<T extends TEntity, DT extends DTOBase> {
     /**
      * to entity
      */
-    T to(DT dto);
+    T map(DT dto);
 
     /**
      * from entity
      */
-    DT from(T entity);
+    DT map(T entity);
 }

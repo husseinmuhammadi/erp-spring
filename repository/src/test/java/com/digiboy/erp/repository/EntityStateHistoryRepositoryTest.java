@@ -33,7 +33,6 @@ class EntityStateHistoryRepositoryTest {
         esh.setState("E");
         entityStateHistoryRepository.save(esh);
 
-        ObjectMapper objectMapper = new ObjectMapper();
         entityStateHistoryRepository.findAll().stream()
                 .map(JsonUtil::jsonString)
                 .forEach(logger::info);

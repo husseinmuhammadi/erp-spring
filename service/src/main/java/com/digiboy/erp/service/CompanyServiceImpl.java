@@ -45,7 +45,7 @@ public class CompanyServiceImpl extends GeneralServiceImpl<Company, CompanyDTO> 
 
     @Override
     public CompanyDTO save(CompanyDTO companyDTO) {
-        Company company = mapper.to(companyDTO);
+        Company company = mapper.map(companyDTO);
 
         repository.save(company);
 

@@ -27,12 +27,12 @@ public abstract class GeneralServiceImpl<T extends TEntity, DT extends DTOBase> 
 
     @Override
     public Page<DT> findAll(Pageable pageable) {
-        return getRepository().findAll(pageable).map(mapper()::from);
+        return getRepository().findAll(pageable).map(mapper()::map);
     }
 
     @Override
     public DT save(DT dto) {
-        return mapper().from(getRepository().save(mapper().to(dto)));
+        return mapper().map(getRepository().save(mapper().map(dto)));
     }
 
     @Override
@@ -43,12 +43,12 @@ public abstract class GeneralServiceImpl<T extends TEntity, DT extends DTOBase> 
     @Override
     public List<DT> findAll() {
         return getRepository().findAll()
-                .stream().map(mapper()::from)
+                .stream().map(mapper()::map)
                 .collect(Collectors.toList());
     }
 
     @Override
     public Optional<DT> findById(Long id) {
-        return getRepository().findById(id).map(mapper()::from);
+        return getRepository().findById(id).map(mapper()::map);
     }
 }

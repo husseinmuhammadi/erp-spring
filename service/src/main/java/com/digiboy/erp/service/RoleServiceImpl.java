@@ -25,7 +25,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role findByName(String name) {
-        return mapper.from(repository.findByName(name));
+        return mapper.map(repository.findByName(name));
     }
 
     @Override

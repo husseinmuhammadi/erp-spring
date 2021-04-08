@@ -37,24 +37,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<UserDTO> findAll(Pageable pageable) {
-        return repository.findAll(pageable).map(mapper::from);
+        return repository.findAll(pageable).map(mapper::map);
     }
 
     @Override
     public List<UserDTO> findAll() {
         return repository.findAll()
-                .stream().map(mapper::from)
+                .stream().map(mapper::map)
                 .collect(Collectors.toList());
     }
 
     @Override
     public Optional<UserDTO> findById(String username) {
-        return repository.findById(username).map(mapper::from);
+        return repository.findById(username).map(mapper::map);
     }
 
     @Override
     public UserDTO save(UserDTO userDTO) {
-        User user = mapper.to(userDTO);
+        User user = mapper.map(userDTO);
 
         final String username = user.getUsername().toLowerCase();
         user.setUsername(username);
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return mapper.from(repository.save(user));
+        return mapper.map(repository.save(user));
     }
 
     @Override
