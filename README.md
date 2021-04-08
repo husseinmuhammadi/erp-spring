@@ -1,5 +1,13 @@
 # Enterprise Resource Planning
 
+
+## Service Layer
+
+### Mapper
+
+[Map Struct Polymorphism](https://stackoverflow.com/questions/39773923/mapstruct-generic-map-and-map-combined-list-of-children-objects)
+
+
 ## Data Layer
 
 ### Testing a Module’s Data Layer with @DataJpaTest

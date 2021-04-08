@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "pay_stub_item_type", discriminatorType = DiscriminatorType.STRING)
 @SequenceGenerator(name = "SEQUENCE_GENERATOR", sequenceName = "pay_stub_item_seq")
-public class PayStubItem extends EntityBase {
+public abstract class PayStubItem extends EntityBase {
 
     private Long amount;
     private String value;

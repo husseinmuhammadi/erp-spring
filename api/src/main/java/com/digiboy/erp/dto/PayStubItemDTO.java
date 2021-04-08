@@ -1,10 +1,23 @@
 package com.digiboy.erp.dto;
 
-public class PayStubItemDTO extends DTOBase {
+public abstract class PayStubItemDTO extends DTOBase {
     private Long id;
+
     private Long amount;
+
     private String value;
+
     private String title;
+
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public Long getAmount() {
         return amount;
