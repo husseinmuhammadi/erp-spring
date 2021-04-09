@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,53 +31,53 @@ class CompanyRepositoryTest {
     @Autowired
     EmployeeRepository employeeRepository;
 
+
+
+    @Test
+    void whenSaveCompany_thenCompanyIdShouldHaveValue() {
+        Company company = new Company();
+        company.setName("SPG");
+        Company company1 = companyRepository.save(company);
+        Assertions.assertThat(company1.getId()).isNotNull();
+        Optional<Company> company2 = companyRepository.findById(company1.getId());
+        Assertions.assertThat(company2).isPresent();
+    }
+
     @Test
     void whenSaveCompany_thenCompanyShouldContainsEmployees() {
         Company company = new Company();
         company.setName("SPG");
 
-        Employee employee = new Employee();
-        employee.setEmployeeCode("10000001");
-//        employee.setCompany(company);
+        Employee employee1 = new Employee();
+        employee1.setEmployeeCode("10000001");
 
-//        company.setEmployees(Arrays.asList(employee));
+        Employee employee2 = new Employee();
+        employee2.setEmployeeCode("10000002");
+
+        company.setEmployees(new HashSet<>());
+        company.getEmployees().add(employee1);
+        company.getEmployees().add(employee2);
 
         Company company1 = companyRepository.save(company);
 
-        Assertions.assertThat(company1.getId()).isNotNull();
+        Assertions.assertThat(company1.getEmployees())
+                .isNotEmpty()
+                .hasSize(2)
+                .extracting(Employee::getEmployeeCode)
+                .contains("10000001", "10000002");
 
-        Optional<Company> company2 = companyRepository.findById(company1.getId());
 
-        Assertions.assertThat(company2).isPresent();
-
-//        Assertions.assertThat(company2.get().getEmployees())
-//                .isNotEmpty()
-//                .hasSize(1)
-//                .extracting(Employee::getEmployeeCode)
-//                .contains("10000001");
-
-        logger.info(JsonUtil.jsonString(company2.get()));
-
-        /*
         List<Employee> employees = employeeRepository.findAll();
-
         employees.stream().map(JsonUtil::jsonString).forEach(logger::info);
 
 //        Assertions.assertThat(employeeRepository.findAll())
 //                .extracting(Employee::getEmployeeCode);
 
-        List<Company> companies = companyRepository.findAll();
-
-
-        companies.stream()
+        Optional<Company> company2 = companyRepository.findById(company1.getId());
+        Assertions.assertThat(company2)
+                .isPresent()
                 .map(Company::getEmployees)
-                .map(JsonUtil::jsonString)
-                .forEach(logger::info);
-
-        companies.forEach(company1 -> {
-            Assertions.assertThat(company1.getEmployees().size()> 0);
-        });
-         */
+                .isNotEmpty();
     }
 
     @Test
