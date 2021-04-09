@@ -3,23 +3,47 @@ package com.digiboy.erp.web.resource;
 import com.digiboy.erp.api.PayStubService;
 import com.digiboy.erp.dto.DeductionPayStubItemDTO;
 import com.digiboy.erp.dto.PayStubDTO;
+import com.digiboy.erp.web.admin.AdminPayStub;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 @RequestMapping("/api/v1/paystubs")
 @RestController
 public class PayStubResource {
 
+    private final Logger logger;
+
     @Autowired
     private PayStubService service;
+
+    @Autowired
+    private MessageSource messageSource;
+
+    @Autowired
+    private AdminPayStub adminPayStub;
+
+    public PayStubResource(Logger logger) {
+        this.logger = logger;
+    }
 
     @GetMapping
     public ResponseEntity<List<PayStubDTO>> list() {
         return ResponseEntity.ok(service.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<PayStubDTO>> list(@PathVariable Long id) {
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @PostMapping
@@ -28,10 +52,11 @@ public class PayStubResource {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<PayStubDTO> save() {
+    public ResponseEntity<PayStubDTO> save(Locale locale) {
+        logger.info("----------------> {}", locale.toString());
         PayStubDTO payStubDTO = new PayStubDTO();
-        payStubDTO.setEmployeeName("Ali");
-        payStubDTO.setEmployeeCode("100001");
+        payStubDTO.setEmployeeName(adminPayStub.getEmployeeName());
+        payStubDTO.setEmployeeCode(adminPayStub.getEmployeeCode());
         payStubDTO.setPayPeriod("1399102");
 
         DeductionPayStubItemDTO deductionPayStubItemDTO = new DeductionPayStubItemDTO();
