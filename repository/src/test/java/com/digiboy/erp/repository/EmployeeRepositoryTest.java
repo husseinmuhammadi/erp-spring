@@ -33,7 +33,7 @@ class EmployeeRepositoryTest {
         person.setName("Ali");
 
         Employee employee = new Employee();
-        employee.setPerson(person);
+        // employee.setPerson(person);
         employee.setEmployeeCode("10000001");
 
         employeeRepository.save(employee);

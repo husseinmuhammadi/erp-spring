@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * todo separate to n resource
+ */
 @RequestMapping("/api/v1/paystubitems")
 @RestController
 public class PayStubItemResource {
@@ -20,6 +23,11 @@ public class PayStubItemResource {
     @GetMapping
     public ResponseEntity<List<PayStubItemDTO>> list() {
         return ResponseEntity.ok(service.findAll());
+    }
+
+    @GetMapping("/deductions")
+    public ResponseEntity<List<DeductionPayStubItemDTO>> deductionsList() {
+        return ResponseEntity.ok(service.findAllDeductions());
     }
 
     @PostMapping

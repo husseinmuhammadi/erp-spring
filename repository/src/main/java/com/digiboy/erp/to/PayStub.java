@@ -35,7 +35,10 @@ public class PayStub extends EntityBase {
     @Column(name = "gross_pay")
     private String grossPay;
 
-    @OneToMany(mappedBy = "payStub")
+    @ManyToOne
+    private Employee employee;
+
+    @OneToMany(mappedBy = "payStub", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<DeductionPayStubItem> deductions;
 
     @OneToMany(mappedBy = "payStub")
@@ -125,5 +128,13 @@ public class PayStub extends EntityBase {
 
     public void setLoans(List<LoanPayStubItem> loans) {
         this.loans = loans;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

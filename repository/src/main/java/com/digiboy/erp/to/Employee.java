@@ -9,8 +9,12 @@ import javax.persistence.*;
 @SequenceGenerator(name = "SEQUENCE_GENERATOR", sequenceName = "employee_seq")
 public class Employee extends EntityBase {
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private Person person;
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+//    private Person person;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company;
 
     @Column(name = "employee_code", length = 50)
     private String employeeCode;
@@ -23,11 +27,11 @@ public class Employee extends EntityBase {
         this.employeeCode = employeeCode;
     }
 
-    public Person getPerson() {
-        return person;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

@@ -1,4 +1,4 @@
 package com.digiboy.erp.dto;
 
-public class DeductionPayStubItemDTO extends PayStubItemDTO{
+public class DeductionPayStubItemDTO extends PayStubItemDTO {
 }

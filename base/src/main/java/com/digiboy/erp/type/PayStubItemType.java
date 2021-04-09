@@ -1,5 +1,5 @@
 package com.digiboy.erp.type;
 
-public enum PayStubItem {
+public enum PayStubItemType {
     net,gross
 }
