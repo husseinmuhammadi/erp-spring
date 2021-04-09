@@ -13,10 +13,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 
 @RequestMapping("/api/v1/paystubs")
 @RestController
@@ -61,15 +58,20 @@ public class PayStubResource {
         payStubDTO.setEmployeeName(adminPayStub.getEmployeeName());
         payStubDTO.setEmployeeCode(adminPayStub.getEmployeeCode());
         payStubDTO.setPayPeriod(payPeriod.orElse("------"));
+
+        DeductionPayStubItemDTO deductionPayStubItemDTO1 = new DeductionPayStubItemDTO();
+        deductionPayStubItemDTO1.setAmount(1000L);
+        deductionPayStubItemDTO1.setTitle("deduction1");
+
+        DeductionPayStubItemDTO deductionPayStubItemDTO2 = new DeductionPayStubItemDTO();
+        deductionPayStubItemDTO2.setAmount(1000L);
+        deductionPayStubItemDTO2.setTitle("deduction1");
+
+        payStubDTO.setDeductions(new HashSet<>());
+        payStubDTO.getDeductions().add(deductionPayStubItemDTO1);
+        payStubDTO.getDeductions().add(deductionPayStubItemDTO2);
+
         PayStubDTO payStubDTO1 = service.save(payStubDTO);
-
-        DeductionPayStubItemDTO deductionPayStubItemDTO = new DeductionPayStubItemDTO();
-        deductionPayStubItemDTO.setAmount(1000L);
-        deductionPayStubItemDTO.setTitle("deduction1");
-        deductionPayStubItemDTO.setPayStub(payStubDTO1);
-        payStubItemService.save(deductionPayStubItemDTO);
-
-        // payStubDTO.setDeductions(Arrays.asList(deductionPayStubItemDTO));
 
         return ResponseEntity.ok(payStubDTO1);
     }

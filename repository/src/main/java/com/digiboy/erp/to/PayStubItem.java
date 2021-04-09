@@ -15,9 +15,9 @@ public abstract class PayStubItem extends EntityBase {
     private String value;
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pay_stub_id", nullable = false, foreignKey = @ForeignKey(name = "FK_PAY_STUB_ITEM_PAY_STUB_ID"))
-    PayStub payStub;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "pay_stub_id", nullable = false, foreignKey = @ForeignKey(name = "FK_PAY_STUB_ITEM_PAY_STUB_ID"))
+//    PayStub payStub;
 
     public Long getAmount() {
         return amount;
@@ -41,13 +41,5 @@ public abstract class PayStubItem extends EntityBase {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public PayStub getPayStub() {
-        return payStub;
-    }
-
-    public void setPayStub(PayStub payStub) {
-        this.payStub = payStub;
     }
 }

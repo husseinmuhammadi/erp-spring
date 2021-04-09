@@ -2,16 +2,27 @@ package com.digiboy.erp.dto;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class PayStubDTO extends DTOBase {
+
     private Long id;
+
     private String employeeCode;
+
     private String employeeName;
+
     private String payPeriod;
 
     private Date date;
 
-    private List<DeductionPayStubItemDTO> deductions;
+    private Set<DeductionPayStubItemDTO> deductions;
+
+    private Set<EarningPayStubItemDTO> earnings;
+
+    private Set<OtherPayStubItemDTO> others;
+
+    private Set<LoanPayStubItemDTO> loans;
 
     public Long getId() {
         return id;
@@ -53,11 +64,35 @@ public class PayStubDTO extends DTOBase {
         this.payPeriod = payPeriod;
     }
 
-    public List<DeductionPayStubItemDTO> getDeductions() {
+    public Set<DeductionPayStubItemDTO> getDeductions() {
         return deductions;
     }
 
-    public void setDeductions(List<DeductionPayStubItemDTO> deductions) {
+    public void setDeductions(Set<DeductionPayStubItemDTO> deductions) {
         this.deductions = deductions;
+    }
+
+    public Set<EarningPayStubItemDTO> getEarnings() {
+        return earnings;
+    }
+
+    public void setEarnings(Set<EarningPayStubItemDTO> earnings) {
+        this.earnings = earnings;
+    }
+
+    public Set<OtherPayStubItemDTO> getOthers() {
+        return others;
+    }
+
+    public void setOthers(Set<OtherPayStubItemDTO> others) {
+        this.others = others;
+    }
+
+    public Set<LoanPayStubItemDTO> getLoans() {
+        return loans;
+    }
+
+    public void setLoans(Set<LoanPayStubItemDTO> loans) {
+        this.loans = loans;
     }
 }
