@@ -51,7 +51,7 @@ public class PayStubResource {
         return ResponseEntity.ok(service.save(payStubDTO));
     }
 
-    @PostMapping("/save")
+    @PostMapping("/test")
     public ResponseEntity<PayStubDTO> save(Locale locale) {
         logger.info("----------------> {}", locale.toString());
         PayStubDTO payStubDTO = new PayStubDTO();

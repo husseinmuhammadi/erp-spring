@@ -43,20 +43,20 @@ public class CompanyServiceImpl extends GeneralServiceImpl<Company, CompanyDTO> 
         return mapper;
     }
 
-    @Override
-    public CompanyDTO save(CompanyDTO companyDTO) {
-        Company company = mapper.map(companyDTO);
-
-        repository.save(company);
-
-        if (companyDTO.getName().startsWith("E"))
-            throw new RuntimeException();
-
-        EntityStateHistory entityStateHistory = new EntityStateHistory();
-        entityStateHistory.setState("E");
-        entityStateHistory.setEntity(company);
-        entityStateHistoryRepository.save(entityStateHistory);
-
-        return companyDTO;
-    }
+//    @Override
+//    public CompanyDTO save(CompanyDTO companyDTO) {
+//        Company company = mapper.map(companyDTO);
+//
+//        repository.save(company);
+//
+//        if (companyDTO.getName().startsWith("E"))
+//            throw new RuntimeException();
+//
+//        EntityStateHistory entityStateHistory = new EntityStateHistory();
+//        entityStateHistory.setState("E");
+//        entityStateHistory.setEntity(company);
+//        entityStateHistoryRepository.save(entityStateHistory);
+//
+//        return companyDTO;
+//    }
 }

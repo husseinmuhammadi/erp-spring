@@ -1,5 +1,6 @@
 package com.digiboy.erp.repository;
 
+import com.digiboy.erp.to.Company;
 import com.digiboy.erp.to.Employee;
 import com.digiboy.erp.to.Person;
 import com.digiboy.erp.utils.JsonUtil;
@@ -22,8 +23,14 @@ class EmployeeRepositoryTest {
     @Autowired
     private PersonRepository personRepository;
 
+    @Autowired
+    private CompanyRepository companyRepository;
+
     @Test
     void name() {
+
+        Company company = new Company();
+        Company company1 = companyRepository.save(company);
 
         Person person1 = new Person();
         person1.setName("Ali");
@@ -35,6 +42,7 @@ class EmployeeRepositoryTest {
         Employee employee = new Employee();
         // employee.setPerson(person);
         employee.setEmployeeCode("10000001");
+        employee.setCompany(company1);
 
         employeeRepository.save(employee);
 

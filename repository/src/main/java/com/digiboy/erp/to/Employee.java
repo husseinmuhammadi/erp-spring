@@ -12,8 +12,8 @@ public class Employee extends EntityBase {
 //    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 //    private Person person;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id")
+    @ManyToOne
+    @JoinColumn(name = "company_id", nullable = false, foreignKey = @ForeignKey(name = "FK_EMPLOYEE_COMPANY_ID"))
     private Company company;
 
     @Column(name = "employee_code", length = 50)

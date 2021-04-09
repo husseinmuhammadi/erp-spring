@@ -1,8 +1,14 @@
 package com.digiboy.erp.dto;
 
+import java.util.List;
+
 public class CompanyDTO extends DTOBase {
+
     private Long id;
+
     private String name;
+
+//    private List<EmployeeDTO> employees;
 
     public Long getId() {
         return id;
