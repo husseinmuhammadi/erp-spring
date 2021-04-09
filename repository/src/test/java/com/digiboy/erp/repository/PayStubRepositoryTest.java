@@ -27,7 +27,7 @@ class PayStubRepositoryTest {
     @Test
     void savePayStub() {
         PayStub payStub = new PayStub();
-        payStub.setDeductions(Arrays.asList(new DeductionPayStubItem()));
+//        payStub.setDeductions(Arrays.asList(new DeductionPayStubItem()));
         PayStub payStub1 = payStubRepository.save(payStub);
         //logger.info(JsonUtil.jsonString(payStub1));
 
@@ -36,7 +36,7 @@ class PayStubRepositoryTest {
 
     @Test
     void savePayStubItem() {
-        DeductionPayStubItem deductionPayStubItem = payStubItemRepository.save(new DeductionPayStubItem());
-        logger.info(JsonUtil.jsonString(deductionPayStubItem));
+//        DeductionPayStubItem deductionPayStubItem = payStubItemRepository.save(new DeductionPayStubItem());
+//        logger.info(JsonUtil.jsonString(deductionPayStubItem));
     }
 }

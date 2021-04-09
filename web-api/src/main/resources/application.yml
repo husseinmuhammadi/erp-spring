@@ -29,6 +29,7 @@ spring:
     initialization-mode: always
     initialize: true
     continue-on-error: true
+    driver-class-name: org.postgresql.Driver
 ---
 spring:
   profiles: stage
@@ -39,6 +40,7 @@ spring:
     initialization-mode: always
     initialize: true
     continue-on-error: true
+    driver-class-name: org.postgresql.Driver
 ---
 spring:
   profiles: prod
@@ -49,3 +51,4 @@ spring:
     initialization-mode: always
     initialize: true
     continue-on-error: true
+    driver-class-name: org.postgresql.Driver

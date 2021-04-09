@@ -5,7 +5,7 @@ import com.digiboy.erp.to.*;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(uses = {PayStubMapper.class})
 public interface PayStubItemMapper extends EntityMapper<PayStubItem, PayStubItemDTO> {
 
     DeductionPayStubItem map(DeductionPayStubItemDTO deductionPayStubItemDTO);

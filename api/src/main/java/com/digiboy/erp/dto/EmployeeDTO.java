@@ -6,7 +6,7 @@ public class EmployeeDTO extends DTOBase {
 
     private String employeeCode;
 
-    private CompanyDTO company;
+//    private CompanyDTO company;
 
     public String getEmployeeCode() {
         return employeeCode;
@@ -22,13 +22,5 @@ public class EmployeeDTO extends DTOBase {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public CompanyDTO getCompany() {
-        return company;
-    }
-
-    public void setCompany(CompanyDTO company) {
-        this.company = company;
     }
 }

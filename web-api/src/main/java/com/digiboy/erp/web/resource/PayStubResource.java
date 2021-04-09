@@ -1,5 +1,6 @@
 package com.digiboy.erp.web.resource;
 
+import com.digiboy.erp.api.PayStubItemService;
 import com.digiboy.erp.api.PayStubService;
 import com.digiboy.erp.dto.DeductionPayStubItemDTO;
 import com.digiboy.erp.dto.PayStubDTO;
@@ -27,6 +28,9 @@ public class PayStubResource {
     private PayStubService service;
 
     @Autowired
+    private PayStubItemService payStubItemService;
+
+    @Autowired
     private MessageSource messageSource;
 
     @Autowired
@@ -52,18 +56,21 @@ public class PayStubResource {
     }
 
     @PostMapping("/test")
-    public ResponseEntity<PayStubDTO> save(Locale locale) {
-        logger.info("----------------> {}", locale.toString());
+    public ResponseEntity<PayStubDTO> save(@RequestParam("payPeriod") Optional<String> payPeriod) {
         PayStubDTO payStubDTO = new PayStubDTO();
         payStubDTO.setEmployeeName(adminPayStub.getEmployeeName());
         payStubDTO.setEmployeeCode(adminPayStub.getEmployeeCode());
-        payStubDTO.setPayPeriod("1399102");
+        payStubDTO.setPayPeriod(payPeriod.orElse("------"));
+        PayStubDTO payStubDTO1 = service.save(payStubDTO);
 
         DeductionPayStubItemDTO deductionPayStubItemDTO = new DeductionPayStubItemDTO();
         deductionPayStubItemDTO.setAmount(1000L);
         deductionPayStubItemDTO.setTitle("deduction1");
+        deductionPayStubItemDTO.setPayStub(payStubDTO1);
+        payStubItemService.save(deductionPayStubItemDTO);
 
-        payStubDTO.setDeductions(Arrays.asList(deductionPayStubItemDTO));
-        return ResponseEntity.ok(service.save(payStubDTO));
+        // payStubDTO.setDeductions(Arrays.asList(deductionPayStubItemDTO));
+
+        return ResponseEntity.ok(payStubDTO1);
     }
 }

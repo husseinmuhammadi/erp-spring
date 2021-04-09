@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 @RequestMapping("/api/v1/companies")
@@ -43,13 +44,14 @@ public class CompanyResource {
 
         EmployeeDTO employee1 = new EmployeeDTO();
         employee1.setEmployeeCode("10000001");
-        employee1.setCompany(companyDTO);
 
         EmployeeDTO employee2 = new EmployeeDTO();
         employee2.setEmployeeCode("10000002");
-        employee2.setCompany(companyDTO);
 
-//        companyDTO.setEmployees(Arrays.asList(employee1, employee2));
+        companyDTO.setEmployees(new HashSet<>());
+        companyDTO.getEmployees().add(employee1);
+        companyDTO.getEmployees().add(employee2);
+
         return ResponseEntity.ok(service.save(companyDTO));
     }
 }

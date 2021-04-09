@@ -38,17 +38,17 @@ public class PayStub extends EntityBase {
     @ManyToOne
     private Employee employee;
 
-    @OneToMany(mappedBy = "payStub", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<DeductionPayStubItem> deductions;
-
-    @OneToMany(mappedBy = "payStub")
-    private List<EarningPayStubItem> earnings;
-
-    @OneToMany(mappedBy = "payStub")
-    private List<OtherPayStubItem> others;
-
-    @OneToMany(mappedBy = "payStub")
-    private List<LoanPayStubItem> loans;
+//    @OneToMany(mappedBy = "payStub", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    private List<DeductionPayStubItem> deductions;
+//
+//    @OneToMany(mappedBy = "payStub")
+//    private List<EarningPayStubItem> earnings;
+//
+//    @OneToMany(mappedBy = "payStub")
+//    private List<OtherPayStubItem> others;
+//
+//    @OneToMany(mappedBy = "payStub")
+//    private List<LoanPayStubItem> loans;
 
     public String getEmployeeCode() {
         return employeeCode;
@@ -96,38 +96,6 @@ public class PayStub extends EntityBase {
 
     public void setGrossPay(String grossPay) {
         this.grossPay = grossPay;
-    }
-
-    public List<DeductionPayStubItem> getDeductions() {
-        return deductions;
-    }
-
-    public void setDeductions(List<DeductionPayStubItem> deductions) {
-        this.deductions = deductions;
-    }
-
-    public List<EarningPayStubItem> getEarnings() {
-        return earnings;
-    }
-
-    public void setEarnings(List<EarningPayStubItem> earnings) {
-        this.earnings = earnings;
-    }
-
-    public List<OtherPayStubItem> getOthers() {
-        return others;
-    }
-
-    public void setOthers(List<OtherPayStubItem> others) {
-        this.others = others;
-    }
-
-    public List<LoanPayStubItem> getLoans() {
-        return loans;
-    }
-
-    public void setLoans(List<LoanPayStubItem> loans) {
-        this.loans = loans;
     }
 
     public Employee getEmployee() {

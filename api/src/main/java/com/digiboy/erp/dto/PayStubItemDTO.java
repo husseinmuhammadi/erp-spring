@@ -11,6 +11,8 @@ public abstract class PayStubItemDTO extends DTOBase {
 
     private String type;
 
+    private PayStubDTO payStub;
+
     public String getType() {
         return type;
     }
@@ -49,5 +51,13 @@ public abstract class PayStubItemDTO extends DTOBase {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public PayStubDTO getPayStub() {
+        return payStub;
+    }
+
+    public void setPayStub(PayStubDTO payStub) {
+        this.payStub = payStub;
     }
 }

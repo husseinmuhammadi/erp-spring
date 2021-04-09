@@ -1,6 +1,7 @@
 package com.digiboy.erp.dto;
 
 import java.util.List;
+import java.util.Set;
 
 public class CompanyDTO extends DTOBase {
 
@@ -8,7 +9,7 @@ public class CompanyDTO extends DTOBase {
 
     private String name;
 
-//    private List<EmployeeDTO> employees;
+    private Set<EmployeeDTO> employees;
 
     public Long getId() {
         return id;
@@ -24,5 +25,13 @@ public class CompanyDTO extends DTOBase {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<EmployeeDTO> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<EmployeeDTO> employees) {
+        this.employees = employees;
     }
 }
