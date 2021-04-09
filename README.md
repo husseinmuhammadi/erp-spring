@@ -1,6 +1,42 @@
 # Enterprise Resource Planning
 
 
+### Controller
+
+```
+Customer
+Invoice
+
+1) return all customers
+   -> /api/v1/customers (GET)
+
+2) get a customer by id
+   ->JSON /api/v1/customers/{customer_id} (GET)
+   ->XML  header -> accept=text/xml
+   ->PDF
+   ->JPG
+
+3) find a customer by first name,last name,age
+   -> /api/v1/customers?fname=X&lname=Y&age=14 (GET)
+
+4) add a new customer
+   -> /api/v1/customers (POST) body=CustInfo
+
+5) update a customer
+   -> /api/v1/customers/{cid} (PUT) replace (PATCH) partial
+
+6) delete a customer
+   -> /api/v1/customers/{cid} (DELETE)
+
+7) get all invoices of a customer
+   -> /api/v1/invoices?cid=12345 (GET)
+   -> /api/v1/customers/{cid}/invoices
+
+
+8) add an invoice to a customer
+   -> /api/v1/invoices (POST) invoices{cid=1}
+```   
+
 ## Service Layer
 
 ### Mapper
