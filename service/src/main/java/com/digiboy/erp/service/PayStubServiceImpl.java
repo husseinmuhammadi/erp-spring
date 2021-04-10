@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> implements PayStubService {
 
@@ -33,5 +36,10 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
     @Override
     EntityMapper<PayStub, PayStubDTO> mapper() {
         return mapper;
+    }
+
+    @Override
+    public List<String> findAllHeadings() {
+        return repository.findAll().stream().map(PayStub::getPayDate).collect(Collectors.toList());
     }
 }

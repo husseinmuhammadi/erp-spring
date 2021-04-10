@@ -8,13 +8,14 @@ import com.digiboy.erp.dto.PayStubDTO;
 import com.digiboy.erp.web.admin.AdminPayStub;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/api/v1/paystubs")
 @RestController
@@ -53,12 +54,18 @@ public class PayStubResource {
         return ResponseEntity.ok(service.save(payStubDTO));
     }
 
+    @GetMapping("/headings")
+    public ResponseEntity<List<String>> activePayStubs() {
+        return ResponseEntity.ok(service.findAllHeadings());
+    }
+
     @PostMapping("/test")
     public ResponseEntity<PayStubDTO> save(@RequestParam("payPeriod") Optional<String> payPeriod) {
         PayStubDTO payStubDTO = new PayStubDTO();
         payStubDTO.setEmployeeName(adminPayStub.getEmployeeName());
         payStubDTO.setEmployeeCode(adminPayStub.getEmployeeCode());
         payStubDTO.setPayPeriod(payPeriod.orElse("------"));
+        payStubDTO.setPayDate(payPeriod.orElse("140001"));
 
         DeductionPayStubItemDTO deductionRound = new DeductionPayStubItemDTO();
         deductionRound.setAmount(adminPayStub.getDeductionRoundAmount());

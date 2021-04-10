@@ -14,6 +14,8 @@ public class PayStubDTO extends DTOBase {
 
     private String payPeriod;
 
+    private String payDate;
+
     private Date date;
 
     private Set<DeductionPayStubItemDTO> deductions;
@@ -94,5 +96,13 @@ public class PayStubDTO extends DTOBase {
 
     public void setLoans(Set<LoanPayStubItemDTO> loans) {
         this.loans = loans;
+    }
+
+    public String getPayDate() {
+        return payDate;
+    }
+
+    public void setPayDate(String payDate) {
+        this.payDate = payDate;
     }
 }

@@ -13,9 +13,10 @@ import java.util.Set;
  * And, the pay stub shows the amount the employee actually receives (net pay).
  */
 @Entity
-@Table(name = "pay_stub")
+@Table(name = "pay_stub", uniqueConstraints = {
+        @UniqueConstraint(name = "UQ_PAY_STUB_EMPLOYEE_CODE_PAY_DATE", columnNames = {"employee_code", "pay_date"})
+})
 @SequenceGenerator(name = "SEQUENCE_GENERATOR", sequenceName = "pay_stub_seq")
-
 public class PayStub extends EntityBase {
 
     @Column(name = "employee_code")
@@ -37,6 +38,7 @@ public class PayStub extends EntityBase {
     private String grossPay;
 
     @ManyToOne
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
