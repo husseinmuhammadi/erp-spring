@@ -3,6 +3,7 @@ package com.digiboy.erp.web.resource;
 import com.digiboy.erp.api.PayStubItemService;
 import com.digiboy.erp.api.PayStubService;
 import com.digiboy.erp.dto.DeductionPayStubItemDTO;
+import com.digiboy.erp.dto.EarningPayStubItemDTO;
 import com.digiboy.erp.dto.PayStubDTO;
 import com.digiboy.erp.web.admin.AdminPayStub;
 import org.slf4j.Logger;
@@ -59,17 +60,39 @@ public class PayStubResource {
         payStubDTO.setEmployeeCode(adminPayStub.getEmployeeCode());
         payStubDTO.setPayPeriod(payPeriod.orElse("------"));
 
-        DeductionPayStubItemDTO deductionPayStubItemDTO1 = new DeductionPayStubItemDTO();
-        deductionPayStubItemDTO1.setAmount(1000L);
-        deductionPayStubItemDTO1.setTitle("deduction1");
+        DeductionPayStubItemDTO deductionRound = new DeductionPayStubItemDTO();
+        deductionRound.setAmount(adminPayStub.getDeductionRoundAmount());
+        deductionRound.setTitle(adminPayStub.getDeductionRoundTitle());
 
-        DeductionPayStubItemDTO deductionPayStubItemDTO2 = new DeductionPayStubItemDTO();
-        deductionPayStubItemDTO2.setAmount(1000L);
-        deductionPayStubItemDTO2.setTitle("deduction1");
+        DeductionPayStubItemDTO deductionInsurance = new DeductionPayStubItemDTO();
+        deductionInsurance.setAmount(adminPayStub.getDeductionInsuranceAmount());
+        deductionInsurance.setTitle(adminPayStub.getDeductionInsuranceTitle());
+
+        DeductionPayStubItemDTO deductionTax = new DeductionPayStubItemDTO();
+        deductionTax.setAmount(adminPayStub.getDeductionTaxAmount());
+        deductionTax.setTitle(adminPayStub.getDeductionTaxTitle());
+
+        DeductionPayStubItemDTO deductionInsuranceComplementary = new DeductionPayStubItemDTO();
+        deductionInsuranceComplementary.setAmount(adminPayStub.getDeductionInsuranceComplementaryAmount());
+        deductionInsuranceComplementary.setTitle(adminPayStub.getDeductionInsuranceComplementaryTitle());
+
+        DeductionPayStubItemDTO deductionHelp = new DeductionPayStubItemDTO();
+        deductionHelp.setAmount(adminPayStub.getDeductionHelpAmount());
+        deductionHelp.setTitle(adminPayStub.getDeductionHelpTitle());
 
         payStubDTO.setDeductions(new HashSet<>());
-        payStubDTO.getDeductions().add(deductionPayStubItemDTO1);
-        payStubDTO.getDeductions().add(deductionPayStubItemDTO2);
+        payStubDTO.getDeductions().add(deductionRound);
+        payStubDTO.getDeductions().add(deductionInsurance);
+        payStubDTO.getDeductions().add(deductionTax);
+        payStubDTO.getDeductions().add(deductionInsuranceComplementary);
+        payStubDTO.getDeductions().add(deductionHelp);
+
+        EarningPayStubItemDTO earningOverTime = new EarningPayStubItemDTO();
+        earningOverTime.setAmount(adminPayStub.getEarningOverTimeAmount());
+        earningOverTime.setTitle(adminPayStub.getEarningOverTimeTitle());
+
+        payStubDTO.setEarnings(new HashSet<>());
+        payStubDTO.getEarnings().add(earningOverTime);
 
         PayStubDTO payStubDTO1 = service.save(payStubDTO);
 
