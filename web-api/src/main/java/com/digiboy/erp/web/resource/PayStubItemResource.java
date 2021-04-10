@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * todo separate to n resource
  */
+@CrossOrigin
 @RequestMapping("/api/v1/paystubitems")
 @RestController
 public class PayStubItemResource {

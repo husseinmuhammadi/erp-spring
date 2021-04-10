@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin
 @RequestMapping("/api/v1/paystubs")
 @RestController
 public class PayStubResource {

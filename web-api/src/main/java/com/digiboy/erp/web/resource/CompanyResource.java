@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+@CrossOrigin
 @RequestMapping("/api/v1/companies")
 @RestController
 public class CompanyResource {
