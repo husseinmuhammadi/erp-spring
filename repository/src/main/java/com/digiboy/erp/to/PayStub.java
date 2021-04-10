@@ -42,19 +42,19 @@ public class PayStub extends EntityBase {
     private Employee employee;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "pay_stub_id")
+//    @JoinColumn(name = "pay_stub_id")
     private Set<DeductionPayStubItem> deductions;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "pay_stub_id")
+//    @JoinColumn(name = "pay_stub_id")
     private Set<EarningPayStubItem> earnings;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "pay_stub_id")
+//    @JoinColumn(name = "pay_stub_id")
     private Set<OtherPayStubItem> others;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "pay_stub_id")
+//    @JoinColumn(name = "pay_stub_id")
     private Set<LoanPayStubItem> loans;
 
     public String getEmployeeCode() {
