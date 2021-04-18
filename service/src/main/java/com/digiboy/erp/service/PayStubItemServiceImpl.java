@@ -42,11 +42,4 @@ public class PayStubItemServiceImpl extends GeneralServiceImpl<PayStubItem, PayS
     EntityMapper<PayStubItem, PayStubItemDTO> mapper() {
         return mapper;
     }
-
-    @Override
-    public List<DeductionPayStubItemDTO> findAllDeductions() {
-        return deductionPayStubItemRepository.findAll()
-                .stream().map(mapper::map)
-                .collect(Collectors.toList());
-    }
 }

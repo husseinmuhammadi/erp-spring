@@ -26,11 +26,6 @@ public class PayStubItemResource {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @GetMapping("/deductions")
-    public ResponseEntity<List<DeductionPayStubItemDTO>> deductionsList() {
-        return ResponseEntity.ok(service.findAllDeductions());
-    }
-
     @PostMapping
     public ResponseEntity<PayStubItemDTO> save(@RequestBody PayStubItemDTO payStubItemDTO) {
         return ResponseEntity.ok(service.save(payStubItemDTO));

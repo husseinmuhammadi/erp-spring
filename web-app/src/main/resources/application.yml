@@ -4,14 +4,8 @@ server:
     context-path: /
 
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:45432/eap
-    username: eap
-    password: 123456
-    initialization-mode: always
-    initialize: true
-    continue-on-error: true
-
+  profiles:
+    active: @active.profiles@
   jpa:
     show-sql: true
     hibernate:
@@ -19,4 +13,42 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        default_schema: eap
+        default_schema: master
+---
+server:
+  port: 80
+  servlet:
+    context-path: /
+
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:postgresql://localhost:45432/firmco
+    username: firmco
+    password: 123456
+    initialization-mode: always
+    initialize: true
+    continue-on-error: true
+    driver-class-name: org.postgresql.Driver
+---
+spring:
+  profiles: stage
+  datasource:
+    url: ${DS_URL}
+    username: ${DS_USERNAME}
+    password: ${DS_PASSWORD}
+    initialization-mode: always
+    initialize: true
+    continue-on-error: true
+    driver-class-name: org.postgresql.Driver
+---
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:postgresql://localhost:5432/firmco
+    username: firmco
+    password: 123456
+    initialization-mode: always
+    initialize: true
+    continue-on-error: true
+    driver-class-name: org.postgresql.Driver

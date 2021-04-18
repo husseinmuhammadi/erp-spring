@@ -42,4 +42,9 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
     public List<String> findAllHeadings() {
         return repository.findAll().stream().map(PayStub::getPayDate).collect(Collectors.toList());
     }
+
+    @Override
+    public PayStubDTO findByPayDate() {
+        return null;
+    }
 }
