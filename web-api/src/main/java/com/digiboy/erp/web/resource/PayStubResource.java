@@ -1,18 +1,24 @@
 package com.digiboy.erp.web.resource;
 
+import com.digiboy.erp.api.EmployeeService;
 import com.digiboy.erp.api.PayStubItemService;
 import com.digiboy.erp.api.PayStubService;
+import com.digiboy.erp.api.UserService;
 import com.digiboy.erp.dto.DeductionPayStubItemDTO;
 import com.digiboy.erp.dto.EarningPayStubItemDTO;
+import com.digiboy.erp.dto.EmployeeDTO;
 import com.digiboy.erp.dto.PayStubDTO;
 import com.digiboy.erp.web.admin.AdminPayStub;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -36,8 +42,26 @@ public class PayStubResource {
     @Autowired
     private AdminPayStub adminPayStub;
 
+    @Autowired
+    private EmployeeService employeeService;
+
+    @Autowired
+    private UserService userService;
+
     public PayStubResource(Logger logger) {
         this.logger = logger;
+    }
+
+    @GetMapping("/{yyyy}/{mm}")
+    public ResponseEntity<Optional<PayStubDTO>> findByPayDate(@PathVariable("yyyy") String year, @PathVariable("mm") String month) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String username = authentication.getName();
+        }
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        EmployeeDTO employee = employeeService.findEmployeeByCode(userDetails.getUsername());
+        Optional<PayStubDTO> payStubDTO = service.findByEmployeeAndPayDate(employee, year + month);
+        return ResponseEntity.ok(payStubDTO);
     }
 
     @GetMapping
@@ -46,7 +70,7 @@ public class PayStubResource {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<PayStubDTO>> list(@PathVariable Long id) {
+    public ResponseEntity<Optional<PayStubDTO>> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 

@@ -5,19 +5,7 @@ public abstract class PayStubItemDTO extends DTOBase {
 
     private Long amount;
 
-    private String value;
-
     private String title;
-
-    private String type;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public Long getAmount() {
         return amount;
@@ -25,14 +13,6 @@ public abstract class PayStubItemDTO extends DTOBase {
 
     public void setAmount(Long amount) {
         this.amount = amount;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 
     public String getTitle() {

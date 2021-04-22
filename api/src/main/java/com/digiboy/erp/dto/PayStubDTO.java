@@ -18,6 +18,16 @@ public class PayStubDTO extends DTOBase {
 
     private Date date;
 
+    private Long totalEarning;
+
+    private Long totalDeduction;
+
+    private Long totalLoan;
+
+    private Long netPay;
+
+
+
     private Set<DeductionPayStubItemDTO> deductions;
 
     private Set<EarningPayStubItemDTO> earnings;
@@ -104,5 +114,37 @@ public class PayStubDTO extends DTOBase {
 
     public void setPayDate(String payDate) {
         this.payDate = payDate;
+    }
+
+    public Long getTotalEarning() {
+        return totalEarning;
+    }
+
+    public void setTotalEarning(Long totalEarning) {
+        this.totalEarning = totalEarning;
+    }
+
+    public Long getTotalDeduction() {
+        return totalDeduction;
+    }
+
+    public void setTotalDeduction(Long totalDeduction) {
+        this.totalDeduction = totalDeduction;
+    }
+
+    public Long getTotalLoan() {
+        return totalLoan;
+    }
+
+    public void setTotalLoan(Long totalLoan) {
+        this.totalLoan = totalLoan;
+    }
+
+    public Long getNetPay() {
+        return netPay;
+    }
+
+    public void setNetPay(Long netPay) {
+        this.netPay = netPay;
     }
 }

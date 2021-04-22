@@ -6,6 +6,16 @@ public class EmployeeDTO extends DTOBase {
 
     private String employeeCode;
 
+    private Long sysId;
+
+    public Long getSysId() {
+        return sysId;
+    }
+
+    public void setSysId(Long sysId) {
+        this.sysId = sysId;
+    }
+
 //    private CompanyDTO company;
 
     public String getEmployeeCode() {

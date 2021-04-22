@@ -25,9 +25,6 @@ public class PayStub extends EntityBase {
     @Column(name = "employee_name")
     private String employeeName;
 
-    @Column(name = "pay_period")
-    private String payPeriod;
-
     @Column(name = "pay_date")
     private String payDate;
 
@@ -42,19 +39,15 @@ public class PayStub extends EntityBase {
     private Employee employee;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-//    @JoinColumn(name = "pay_stub_id")
     private Set<DeductionPayStubItem> deductions;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-//    @JoinColumn(name = "pay_stub_id")
     private Set<EarningPayStubItem> earnings;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-//    @JoinColumn(name = "pay_stub_id")
     private Set<OtherPayStubItem> others;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-//    @JoinColumn(name = "pay_stub_id")
     private Set<LoanPayStubItem> loans;
 
     public String getEmployeeCode() {
@@ -71,14 +64,6 @@ public class PayStub extends EntityBase {
 
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
-    }
-
-    public String getPayPeriod() {
-        return payPeriod;
-    }
-
-    public void setPayPeriod(String payPeriod) {
-        this.payPeriod = payPeriod;
     }
 
     public String getPayDate() {

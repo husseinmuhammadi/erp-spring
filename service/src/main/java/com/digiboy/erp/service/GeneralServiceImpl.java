@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public abstract class GeneralServiceImpl<T extends TEntity, DT extends DTOBase> implements GeneralService<DT> {
 
-    private final Logger logger;
+    protected final Logger logger;
 
     public GeneralServiceImpl(Logger logger) {
         this.logger = logger;
