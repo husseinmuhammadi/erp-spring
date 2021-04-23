@@ -58,6 +58,7 @@ public class PayStubResource {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String username = authentication.getName();
         }
+        logger.info("------>{}", authentication.getPrincipal().getClass().getName());
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         EmployeeDTO employee = employeeService.findEmployeeByCode(userDetails.getUsername());
         Optional<PayStubDTO> payStubDTO = service.findByEmployeeAndPayDate(employee, year + month);
