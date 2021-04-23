@@ -68,6 +68,21 @@ public class PayStubResource {
         return ResponseEntity.ok(payStubDTO);
     }
 
+    @GetMapping("/issue-years")
+    public ResponseEntity<List<String>> findAllByIssueYears() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String username = authentication.getName();
+        }
+        logger.info("------>{}", authentication.getPrincipal().getClass().getName());
+        if (!(authentication.getPrincipal() instanceof UserDetails))
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        EmployeeDTO employee = employeeService.findEmployeeByCode(userDetails.getUsername());
+        List<String> issueYears = service.findAllIssueYears(employee);
+        return ResponseEntity.ok(issueYears);
+    }
+
     @GetMapping
     public ResponseEntity<List<PayStubDTO>> list() {
         return ResponseEntity.ok(service.findAll());

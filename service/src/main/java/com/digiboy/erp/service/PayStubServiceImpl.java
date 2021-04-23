@@ -9,7 +9,6 @@ import com.digiboy.erp.mapper.EntityMapper;
 import com.digiboy.erp.mapper.PayStubMapper;
 import com.digiboy.erp.repository.PayStubRepository;
 import com.digiboy.erp.to.PayStub;
-import com.digiboy.erp.to.PayStubItem;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,7 +18,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> implements PayStubService {
@@ -112,6 +110,13 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
         payStubDTO.setDeductions(deductionPayStubItems);
 
         return Optional.of(payStubDTO);
+    }
+
+    @Override
+    public List<String> findAllIssueYears(EmployeeDTO employee) {
+        String url = String.format(endpoint.getSystemGroupEmployeePayStubs(), employee.getSysId());
+        String[] issueYears = restTemplate.getForObject(endpoint.getSystemGroupPayEmployeeIssueYears(), String[].class);
+        return Arrays.asList(issueYears);
     }
 
     private void extractPayStubItem(PayStubItemSG[] sgPayStubItems, int compensationFactorId, Consumer<Long> consumer) {

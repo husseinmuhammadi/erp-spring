@@ -6,4 +6,6 @@ public interface Endpoint {
     String getSystemGroupEmployeePayStubs();
 
     String getSystemGroupPayStubPayItems();
+
+    String getSystemGroupPayEmployeeIssueYears();
 }

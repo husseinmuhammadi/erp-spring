@@ -10,4 +10,6 @@ public interface PayStubService extends GeneralService<PayStubDTO> {
     List<String> findAllHeadings();
 
     Optional<PayStubDTO> findByEmployeeAndPayDate(EmployeeDTO employee, String payDate);
+
+    List<String> findAllIssueYears(EmployeeDTO employee);
 }

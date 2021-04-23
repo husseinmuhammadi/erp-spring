@@ -21,4 +21,9 @@ public class ProductionEndpoint implements Endpoint {
     public String getSystemGroupPayStubPayItems() {
         return "http://localhost:9086/api/v1/paystubs/%s/paystubitems";
     }
+
+    @Override
+    public String getSystemGroupPayEmployeeIssueYears() {
+        return "http://localhost:9086/api/v1/employees/%d/paystubs/issue-years";
+    }
 }
