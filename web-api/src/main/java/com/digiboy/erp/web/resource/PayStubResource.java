@@ -12,6 +12,7 @@ import com.digiboy.erp.web.admin.AdminPayStub;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -59,6 +60,8 @@ public class PayStubResource {
             String username = authentication.getName();
         }
         logger.info("------>{}", authentication.getPrincipal().getClass().getName());
+        if (!(authentication.getPrincipal() instanceof UserDetails))
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         EmployeeDTO employee = employeeService.findEmployeeByCode(userDetails.getUsername());
         Optional<PayStubDTO> payStubDTO = service.findByEmployeeAndPayDate(employee, year + month);
