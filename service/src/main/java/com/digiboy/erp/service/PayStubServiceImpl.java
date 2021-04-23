@@ -114,8 +114,9 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
 
     @Override
     public List<String> findAllIssueYears(EmployeeDTO employee) {
-        String url = String.format(endpoint.getSystemGroupEmployeePayStubs(), employee.getSysId());
-        String[] issueYears = restTemplate.getForObject(endpoint.getSystemGroupPayEmployeeIssueYears(), String[].class);
+        String url = String.format(endpoint.getSystemGroupPayEmployeeIssueYears(), employee.getSysId());
+        logger.info("url: {}", url);
+        String[] issueYears = restTemplate.getForObject(url, String[].class);
         return Arrays.asList(issueYears);
     }
 
