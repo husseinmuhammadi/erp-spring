@@ -40,6 +40,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         // JWT Token is in the form "Bearer token". Remove Bearer word and get only the Token
         final String requestTokenHeader = request.getHeader("Authorization");
+        logger.info("token: {}", requestTokenHeader);
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
             try {
