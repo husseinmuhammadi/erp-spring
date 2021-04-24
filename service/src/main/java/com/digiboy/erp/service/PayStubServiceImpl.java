@@ -67,6 +67,7 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
 
         PayStubDTO payStubDTO = new PayStubDTO();
         payStubDTO.setEmployeeCode(employee.getEmployeeCode());
+        payStubDTO.setEmployeeName(employee.getFirstName() + " " + employee.getLastName());
         payStubDTO.setPayDate(payDate);
 
         extractPayStubItem(sgPayStubItems, 7, payStubDTO::setNetPay);

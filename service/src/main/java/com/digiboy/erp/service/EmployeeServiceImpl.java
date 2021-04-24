@@ -48,6 +48,8 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<Employee, EmployeeDT
             EmployeeDTO employeeDTO = new EmployeeDTO();
             employeeDTO.setEmployeeCode(sgEmployees[0].getCode());
             employeeDTO.setSysId(sgEmployees[0].getId());
+            employeeDTO.setFirstName(sgEmployees[0].getFirstName());
+            employeeDTO.setLastName(sgEmployees[0].getLastName());
             return employeeDTO;
         }
         return null;
