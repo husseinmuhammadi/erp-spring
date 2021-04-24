@@ -1,4 +1,4 @@
-package com.digiboy.erp.web.config;
+package com.digiboy.erp.config;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;

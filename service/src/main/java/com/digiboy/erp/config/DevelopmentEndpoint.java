@@ -1,29 +1,29 @@
-package com.digiboy.erp.web.config;
+package com.digiboy.erp.config;
 
 import com.digiboy.erp.cfg.Endpoint;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-@Profile("prod")
+@Profile("dev")
 @Configuration
-public class ProductionEndpoint implements Endpoint {
+public class DevelopmentEndpoint implements Endpoint {
     @Override
     public String getSystemGroupEmployeeByCode() {
-        return "http://localhost:9086/api/v1/employees?code=";
+        return "http://178.173.146.154:8086/api/v1/employees?code=";
     }
 
     @Override
     public String getSystemGroupEmployeePayStubs() {
-        return "http://localhost:9086/api/v1/employees/%d/paystubs";
+        return "http://178.173.146.154:8086/api/v1/employees/%d/paystubs";
     }
 
     @Override
     public String getSystemGroupPayStubPayItems() {
-        return "http://localhost:9086/api/v1/paystubs/%s/paystubitems";
+        return "http://178.173.146.154:8086/api/v1/paystubs/%s/paystubitems";
     }
 
     @Override
     public String getSystemGroupPayEmployeeIssueYears() {
-        return "http://localhost:9086/api/v1/employees/%d/paystubs/issue-years";
+        return "http://178.173.146.154:8086/api/v1/employees/%d/paystubs/issue-years";
     }
 }

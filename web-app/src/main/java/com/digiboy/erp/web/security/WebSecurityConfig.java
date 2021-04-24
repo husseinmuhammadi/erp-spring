@@ -27,7 +27,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/images/**").permitAll()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/", "/home", "/index").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
+                .and()
+                .formLogin().loginPage("/login").permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
