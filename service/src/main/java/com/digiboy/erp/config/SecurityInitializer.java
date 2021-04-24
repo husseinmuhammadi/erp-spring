@@ -1,4 +1,4 @@
-package com.digiboy.erp.web.admin;
+package com.digiboy.erp.config;
 
 import com.digiboy.erp.api.RoleService;
 import com.digiboy.erp.api.UserService;

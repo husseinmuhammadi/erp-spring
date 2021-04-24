@@ -1,4 +1,4 @@
-package com.digiboy.erp.web.controller;
+package com.digiboy.erp.web.controller.base;
 
 import com.digiboy.erp.api.GeneralService;
 import com.digiboy.erp.dto.CompanyDTO;
@@ -24,7 +24,7 @@ public abstract class ControllerBase<T extends DTOBase> {
         this.logger = logger;
     }
 
-    abstract GeneralService<T> service();
+    protected abstract GeneralService<T> service();
 
     @GetMapping("/index")
     public String index(Model model,
@@ -81,9 +81,9 @@ public abstract class ControllerBase<T extends DTOBase> {
         return "redirect:" + indexController() + "?size=" + pageSize + "&page=" + currentPage;
     }
 
-    abstract String index();
+    protected abstract String index();
 
-    abstract String entry();
+    protected abstract String entry();
 
-    abstract String indexController();
+    protected abstract String indexController();
 }

@@ -1,9 +1,10 @@
-package com.digiboy.erp.web.controller;
+package com.digiboy.erp.web.controller.admin;
 
 import com.digiboy.erp.api.CompanyService;
 import com.digiboy.erp.api.GeneralService;
 import com.digiboy.erp.dto.CompanyDTO;
 import com.digiboy.erp.dto.DTOBase;
+import com.digiboy.erp.web.controller.base.ControllerBase;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,7 @@ public class CompanyController extends ControllerBase<CompanyDTO> {
     }
 
     @Override
-    GeneralService service() {
+    protected GeneralService service() {
         return service;
     }
 
@@ -33,17 +34,17 @@ public class CompanyController extends ControllerBase<CompanyDTO> {
     }
 
     @Override
-    String index() {
+    protected String index() {
         return "company/index";
     }
 
     @Override
-    String entry() {
+    protected String entry() {
         return "company/insert";
     }
 
     @Override
-    String indexController() {
+    protected String indexController() {
         return "/admin/company/index";
     }
 }
