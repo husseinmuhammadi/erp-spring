@@ -14,6 +14,7 @@ public class UserDTO extends DTOBase {
 
     private String username;
     private String password;
+    private String cleanPassword;
     private String email;
 
     private Set<Role> roles = new HashSet<>();
@@ -48,5 +49,13 @@ public class UserDTO extends DTOBase {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getCleanPassword() {
+        return cleanPassword;
+    }
+
+    public void setCleanPassword(String cleanPassword) {
+        this.cleanPassword = cleanPassword;
     }
 }
