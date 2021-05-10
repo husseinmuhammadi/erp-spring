@@ -50,9 +50,14 @@ public class UserResource {
         return ResponseEntity.ok(users);
     }
 
+    @DeleteMapping("/{username}")
+    public void remove(@PathVariable("username") String username) {
+        userService.remove(username);
+    }
+
     @ResponseBody
-    @PutMapping("/setup/password")
-    public String resetAllPasswords() {
+    @PutMapping("/generateAllPasswords")
+    public String generateAllPasswords() {
         List<EmployeeDTO> employees = employeeService.fetchAll();
         for (EmployeeDTO employee : employees) {
             UserDTO user = new UserDTO();
@@ -62,6 +67,19 @@ public class UserResource {
             userService.save(user);
         }
         return "Done";
+    }
+
+    @PutMapping("/generatePassword/{employeeCode}")
+    public ResponseEntity<UserDTO> generatePassword(@PathVariable("employeeCode") String employeeCode) {
+        EmployeeDTO employee = employeeService.findEmployeeByCode(employeeCode);
+
+        UserDTO user = new UserDTO();
+        user.setUsername(employee.getEmployeeCode());
+        user.setPassword(passwordGenerator.generatePassayPassword());
+        logger.info(JsonUtil.jsonString(user));
+        UserDTO save = userService.save(user);
+
+        return ResponseEntity.ok(save);
     }
 
     @GetMapping(value = "/exportCSV", produces = "text/csv")
