@@ -15,6 +15,8 @@ public class User implements TEntity {
 
     private String password;
 
+    private String cleanPassword;
+
     private String email;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -55,5 +57,13 @@ public class User implements TEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCleanPassword() {
+        return cleanPassword;
+    }
+
+    public void setCleanPassword(String cleanPassword) {
+        this.cleanPassword = cleanPassword;
     }
 }

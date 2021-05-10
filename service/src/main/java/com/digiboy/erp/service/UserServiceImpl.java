@@ -63,6 +63,7 @@ public class UserServiceImpl implements UserService {
             logger.warn("User {} already exists, it will be updated", username);
         }
 
+        user.setCleanPassword(user.getPassword());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return mapper.map(repository.save(user));
     }
