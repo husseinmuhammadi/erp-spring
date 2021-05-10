@@ -8,6 +8,11 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 public class ProductionEndpoint implements Endpoint {
     @Override
+    public String getSystemGroupAllEmployees() {
+        return "http://localhost:9086/api/v1/employees";
+    }
+
+    @Override
     public String getSystemGroupEmployeeByCode() {
         return "http://localhost:9086/api/v1/employees?code=";
     }

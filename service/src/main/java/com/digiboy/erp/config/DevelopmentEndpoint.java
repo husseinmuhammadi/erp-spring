@@ -8,6 +8,11 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 public class DevelopmentEndpoint implements Endpoint {
     @Override
+    public String getSystemGroupAllEmployees() {
+        return "http://178.173.146.154:8086/api/v1/employees";
+    }
+
+    @Override
     public String getSystemGroupEmployeeByCode() {
         return "http://178.173.146.154:8086/api/v1/employees?code=";
     }

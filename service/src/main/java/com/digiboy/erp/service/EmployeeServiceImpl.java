@@ -13,6 +13,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class EmployeeServiceImpl extends GeneralServiceImpl<Employee, EmployeeDTO> implements EmployeeService {
 
@@ -53,5 +56,21 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<Employee, EmployeeDT
             return employeeDTO;
         }
         return null;
+    }
+
+    @Override
+    public List<EmployeeDTO> fetchAll() {
+        String url = endpoint.getSystemGroupAllEmployees();
+        EmployeeSG[] sgEmployees = restTemplate.getForObject(url, EmployeeSG[].class);
+        List<EmployeeDTO> employees = new ArrayList<>();
+        for (EmployeeSG sgEmployee : sgEmployees) {
+            EmployeeDTO employeeDTO = new EmployeeDTO();
+            employeeDTO.setEmployeeCode(sgEmployee.getCode());
+            employeeDTO.setSysId(sgEmployee.getId());
+            employeeDTO.setFirstName(sgEmployee.getFirstName());
+            employeeDTO.setLastName(sgEmployee.getLastName());
+            employees.add(employeeDTO);
+        }
+        return employees;
     }
 }
