@@ -13,7 +13,7 @@
 <th:block th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" th:href="@{/}">
-            <img th:src="@{/images/logo.png}" width="105" height="58" alt="Tasnim">
+            <img th:src="@{/images/firmco.jpg}" width="40" height="40" alt="FirmCo Logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -22,19 +22,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" th:href="@{/}">Home</a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="#">This content is only shown to authenticated users.</a>
-                </li>
-                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a class="nav-link" th:href="@{/admin/user/list}">User Management</a>
-                </li>
-                <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
-                    <a class="nav-link" href="#">This content is only shown to users.</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
+
+                <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a class="nav-link dropdown-toggle" href="#" id="administrative" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Administrative
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="administrative">
+                        <a class="dropdown-item" th:href="@{/}">User management</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
                 </li>
             </ul>
             <a class="nav-link" sec:authorize="isAnonymous()" href="/login" th:href="@{/login}">Login</a>
