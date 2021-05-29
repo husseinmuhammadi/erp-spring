@@ -74,7 +74,9 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
         extractPayStubItem(sgPayStubItems, 12, payStubDTO::setTotalEarning);
         extractPayStubItem(sgPayStubItems, 13, payStubDTO::setTotalDeduction);
 
-        List<Long> otherFilter = Arrays.asList(110L, 113L, 389L, 391L, 393L);
+        List<Long> otherFilter = Arrays.asList(
+                64L, 110L, 111L, 113L, 116L, 121L, 187L, 386L, 387L, 389L, 391L, 393L, 394L, 399L, 426L, 458L
+        );
         Set<OtherPayStubItemDTO> otherPayStubItems = Arrays.stream(Objects.requireNonNull(sgPayStubItems))
                 .filter(item -> otherFilter.contains(item.getCompensationFactorId()))
                 .map(item -> {
@@ -86,7 +88,9 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
                 }).collect(Collectors.toSet());
         payStubDTO.setOthers(otherPayStubItems);
 
-        List<Long> earningFilter = Arrays.asList(194L, 182L, 336L, 16L, 17L, 18L, 22L, 181L, 216L, 41L);
+        List<Long> earningFilter = Arrays.asList(
+                3L, 10L, 14L, 15L, 16L, 17L, 18L, 20L, 21L, 22L, 25L, 27L, 29L, 31L, 33L, 35L, 39L, 40L, 41L, 42L, 43L, 44L, 129L, 130L, 131L, 178L, 179L, 181L, 182L, 194L, 216L, 242L, 243L, 244L, 331L, 336L, 339L, 375L, 427L, 445L, 446L, 447L, 450L, 451L, 452L, 453L, 454L, 455L, 456L, 457L, 461L, 462L, 463L
+        );
         Set<EarningPayStubItemDTO> earningPayStubItems = Arrays.stream(Objects.requireNonNull(sgPayStubItems))
                 .filter(item -> earningFilter.contains(item.getCompensationFactorId()))
                 .map(item -> {
@@ -98,7 +102,9 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
                 }).collect(Collectors.toSet());
         payStubDTO.setEarnings(earningPayStubItems);
 
-        List<Long> deductionFilter = Arrays.asList(8L, 45L, 49L, 341L, 51L);
+        List<Long> deductionFilter = Arrays.asList(
+                8L, 11L, 45L, 49L, 50L, 51L, 52L, 118L, 122L, 186L, 196L, 340L, 341L, 385L, 442L
+        );
         Set<DeductionPayStubItemDTO> deductionPayStubItems = Arrays.stream(Objects.requireNonNull(sgPayStubItems))
                 .filter(item -> deductionFilter.contains(item.getCompensationFactorId()))
                 .map(item -> {
