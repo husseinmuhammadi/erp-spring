@@ -74,9 +74,12 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
         extractPayStubItem(sgPayStubItems, 12, payStubDTO::setTotalEarning);
         extractPayStubItem(sgPayStubItems, 13, payStubDTO::setTotalDeduction);
 
+        payStubDTO.setLeaveBalance(extractLeaveBalance(sgPayStubItems));
+
         List<Long> otherFilter = Arrays.asList(
-                64L, 110L, 111L, 113L, 116L, 121L, 187L, 386L, 387L, 389L, 391L, 393L, 394L, 399L, 426L, 458L
+                64L, 110L, 111L, 113L, 116L, 121L, 187L, 386L, 387L, 394L, 399L, 426L, 458L
         );
+
         Set<OtherPayStubItemDTO> otherPayStubItems = Arrays.stream(Objects.requireNonNull(sgPayStubItems))
                 .filter(item -> otherFilter.contains(item.getCompensationFactorId()))
                 .map(item -> {
@@ -132,5 +135,24 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
                 .filter(item -> item.getCompensationFactorId() == compensationFactorId)
                 .findFirst().map(PayStubItemSG::getAmount)
                 .ifPresent(consumer);
+    }
+
+    private String extractLeaveBalance(PayStubItemSG[] sgPayStubItems) {
+        StringBuilder builder = new StringBuilder();
+        Arrays.stream(Objects.requireNonNull(sgPayStubItems))
+                .filter(item -> item.getCompensationFactorId() == 389)
+                .findFirst().map(PayStubItemSG::getAmount)
+                .ifPresent(builder::append);
+        builder.append(":");
+        Arrays.stream(Objects.requireNonNull(sgPayStubItems))
+                .filter(item -> item.getCompensationFactorId() == 391)
+                .findFirst().map(PayStubItemSG::getAmount)
+                .ifPresent(builder::append);
+        builder.append(":");
+        Arrays.stream(Objects.requireNonNull(sgPayStubItems))
+                .filter(item -> item.getCompensationFactorId() == 393)
+                .findFirst().map(PayStubItemSG::getAmount)
+                .ifPresent(builder::append);
+        return builder.toString();
     }
 }
