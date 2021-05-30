@@ -73,6 +73,7 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
         extractPayStubItem(sgPayStubItems, 7, payStubDTO::setNetPay);
         extractPayStubItem(sgPayStubItems, 12, payStubDTO::setTotalEarning);
         extractPayStubItem(sgPayStubItems, 13, payStubDTO::setTotalDeduction);
+        extractPayStubItem(sgPayStubItems, 50, payStubDTO::setTotalLoan);
 
         payStubDTO.setLeaveBalance(extractLeaveBalance(sgPayStubItems));
 
@@ -118,6 +119,20 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
                     return deductionPayStubItemDTO;
                 }).collect(Collectors.toSet());
         payStubDTO.setDeductions(deductionPayStubItems);
+
+        List<Long> loanFilter = Arrays.asList(
+                337L
+        );
+        Set<LoanPayStubItemDTO> loanPayStubItems = Arrays.stream(Objects.requireNonNull(sgPayStubItems))
+                .filter(item -> loanFilter.contains(item.getCompensationFactorId()))
+                .map(item -> {
+                    LoanPayStubItemDTO loanPayStubItemDTO = new LoanPayStubItemDTO();
+                    loanPayStubItemDTO.setTitle(item.getTitle());
+                    loanPayStubItemDTO.setAmount(item.getAmount());
+                    loanPayStubItemDTO.setId(item.getCompensationFactorId());
+                    return loanPayStubItemDTO;
+                }).collect(Collectors.toSet());
+        payStubDTO.setLoans(loanPayStubItems);
 
         return Optional.of(payStubDTO);
     }
