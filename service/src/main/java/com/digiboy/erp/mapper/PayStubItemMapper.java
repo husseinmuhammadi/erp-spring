@@ -1,6 +1,7 @@
 package com.digiboy.erp.mapper;
 
 import com.digiboy.erp.dto.*;
+import com.digiboy.erp.exception.MappingException;
 import com.digiboy.erp.to.*;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -32,7 +33,7 @@ public interface PayStubItemMapper extends EntityMapper<PayStubItem, PayStubItem
         } else if (payStubItem instanceof OtherPayStubItem) {
             return this.map((OtherPayStubItem) payStubItem);
         } else {
-            return this.map((LoanPayStubItem) payStubItem);
+            throw new MappingException("Error in mapping from PayStubItem to PayStubItemDTO");
         }
     }
 
@@ -45,7 +46,7 @@ public interface PayStubItemMapper extends EntityMapper<PayStubItem, PayStubItem
         } else if (payStubItemDTO instanceof OtherPayStubItemDTO) {
             return this.map((OtherPayStubItemDTO) payStubItemDTO);
         } else {
-            return this.map((LoanPayStubItemDTO) payStubItemDTO);
+            throw new MappingException("Error in mapping from PayStubItemDTO to PayStubItem");
         }
     }
 }
