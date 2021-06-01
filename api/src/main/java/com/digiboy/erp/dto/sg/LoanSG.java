@@ -1,11 +1,13 @@
-package com.digiboy.erp.dto;
+package com.digiboy.erp.dto.sg;
 
-public class LoanPayStubItemDTO {
+public class LoanSG {
+
     private String title;
     private Long principal;
     private Long installment;
     private Long outstanding;
     private String paymentYearMonth;
+    private Long employeeId;
 
     public String getTitle() {
         return title;
@@ -45,5 +47,13 @@ public class LoanPayStubItemDTO {
 
     public void setPaymentYearMonth(String paymentYearMonth) {
         this.paymentYearMonth = paymentYearMonth;
+    }
+
+    public Long getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
 }

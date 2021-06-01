@@ -3,6 +3,7 @@ package com.digiboy.erp.service;
 import com.digiboy.erp.api.PayStubService;
 import com.digiboy.erp.cfg.Endpoint;
 import com.digiboy.erp.dto.*;
+import com.digiboy.erp.dto.sg.LoanSG;
 import com.digiboy.erp.dto.sg.PayStubItemSG;
 import com.digiboy.erp.dto.sg.PayStubSG;
 import com.digiboy.erp.mapper.EntityMapper;
@@ -61,6 +62,7 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
         Optional<PayStubSG> sgPayStub = Arrays.stream(Objects.requireNonNull(sgPayStubs)).filter(payStubSG -> payStubSG.getIssueYearMonth().equals(payDate)).findFirst();
         if (sgPayStub.isEmpty())
             return Optional.empty();
+
         String url2 = String.format(endpoint.getSystemGroupPayStubPayItems(), sgPayStub.get().getId());
         PayStubItemSG[] sgPayStubItems = restTemplate.getForObject(url2, PayStubItemSG[].class);
         Arrays.stream(Objects.requireNonNull(sgPayStubItems)).map(item -> String.format("%s:%d", item.getTitle(), item.getAmount())).forEach(logger::info);
@@ -109,6 +111,21 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
                     return deductionPayStubItemDTO;
                 }).collect(Collectors.toSet());
         payStubDTO.setDeductions(deductionPayStubItems);
+
+        String url3 = String.format(endpoint.getSystemGroupEmployeeLoans(), employee.getSysId());
+        LoanSG[] sgLoans = restTemplate.getForObject(url3, LoanSG[].class);
+        Set<LoanPayStubItemDTO> loanPayStubItems = Arrays.stream(Objects.requireNonNull(sgLoans))
+                .filter(item -> payDate.equals(item.getPaymentYearMonth()))
+                .map(item -> {
+                    LoanPayStubItemDTO loanPayStubItemDTO = new LoanPayStubItemDTO();
+                    loanPayStubItemDTO.setTitle(item.getTitle());
+                    loanPayStubItemDTO.setPrincipal(item.getPrincipal());
+                    loanPayStubItemDTO.setInstallment(item.getInstallment());
+                    loanPayStubItemDTO.setOutstanding(item.getOutstanding());
+                    loanPayStubItemDTO.setPaymentYearMonth(item.getPaymentYearMonth());
+                    return loanPayStubItemDTO;
+                }).collect(Collectors.toSet());
+        payStubDTO.setLoans(loanPayStubItems);
 
         return Optional.of(payStubDTO);
     }
