@@ -26,7 +26,7 @@ public class PayStubDTO extends DTOBase {
 
     private Long netPay;
 
-
+    private String leaveBalance;
 
     private Set<DeductionPayStubItemDTO> deductions;
 
@@ -146,5 +146,13 @@ public class PayStubDTO extends DTOBase {
 
     public void setNetPay(Long netPay) {
         this.netPay = netPay;
+    }
+
+    public String getLeaveBalance() {
+        return leaveBalance;
+    }
+
+    public void setLeaveBalance(String leaveBalance) {
+        this.leaveBalance = leaveBalance;
     }
 }
