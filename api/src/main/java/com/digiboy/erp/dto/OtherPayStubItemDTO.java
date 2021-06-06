@@ -3,7 +3,7 @@ package com.digiboy.erp.dto;
 public class OtherPayStubItemDTO {
     private Long id;
     private String title;
-    private String value;
+    private String amount;
 
     public Long getId() {
         return id;
@@ -21,11 +21,11 @@ public class OtherPayStubItemDTO {
         this.title = title;
     }
 
-    public String getValue() {
-        return value;
+    public String getAmount() {
+        return amount;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 }

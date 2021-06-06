@@ -88,7 +88,7 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
                     OtherPayStubItemDTO otherPayStubItemDTO = new OtherPayStubItemDTO();
                     otherPayStubItemDTO.setId(item.getCompensationFactorId());
                     otherPayStubItemDTO.setTitle(item.getTitle());
-                    otherPayStubItemDTO.setValue(String.valueOf(item.getAmount()));
+                    otherPayStubItemDTO.setAmount(String.valueOf(item.getAmount()));
                     return otherPayStubItemDTO;
                 }).collect(Collectors.toSet());
         otherPayStubItems.add(extractLeaveBalance(sgPayStubItems));
@@ -177,7 +177,7 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
                     result.add(String.format("%02d", value));
                     Collections.reverse(result);
                 });
-        leaveUsed.setValue(StringUtils.join(result, ":"));
+        leaveUsed.setAmount(StringUtils.join(result, ":"));
         return leaveUsed;
     }
 
@@ -201,7 +201,7 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
                 .filter(item -> item.getCompensationFactorId() == 393)
                 .findFirst().map(PayStubItemSG::getAmount)
                 .ifPresent(builder::append);
-        leaveBalance.setValue(builder.toString());
+        leaveBalance.setAmount(builder.toString());
         return leaveBalance;
     }
 }
