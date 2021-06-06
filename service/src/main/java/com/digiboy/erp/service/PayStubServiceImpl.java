@@ -18,9 +18,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> implements PayStubService {
@@ -85,20 +87,20 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
                 64L, 110L, 111L, 113L, 116L, 121L, 187L, 386L, 394L, 426L, 458L
         );
 
-        Set<OtherPayStubItemDTO> otherPayStubItems = Arrays.stream(Objects.requireNonNull(sgPayStubItems))
+        Set<OtherPayStubItemDTO> otherPayStubItems = new TreeSet<>(Comparator.comparing(OtherPayStubItemDTO::getId));
+        otherPayStubItems.addAll(getEmployeeAttendance(employee.getSysId(), year, month));
+        otherPayStubItems.add(extractLeaveBalance(sgPayStubItems));
+        otherPayStubItems.add(extractLeaveUsedInCurrentMonth(sgPayStubItems));
+        Set<OtherPayStubItemDTO> others = Arrays.stream(Objects.requireNonNull(sgPayStubItems))
                 .filter(item -> otherFilter.contains(item.getCompensationFactorId()))
                 .map(item -> {
                     OtherPayStubItemDTO otherPayStubItemDTO = new OtherPayStubItemDTO();
                     otherPayStubItemDTO.setId(item.getCompensationFactorId());
                     otherPayStubItemDTO.setTitle(item.getTitle());
-                    otherPayStubItemDTO.setAmount(String.valueOf(item.getAmount()));
+                    otherPayStubItemDTO.setAmount(new DecimalFormat("###,###").format(item.getAmount()));
                     return otherPayStubItemDTO;
                 }).collect(Collectors.toSet());
-        otherPayStubItems.add(extractLeaveBalance(sgPayStubItems));
-        otherPayStubItems.add(extractLeaveUsedInCurrentMonth(sgPayStubItems));
-
-        otherPayStubItems.addAll(getEmployeeAttendance(employee.getSysId(), year, month));
-
+        otherPayStubItems.addAll(others);
         payStubDTO.setOthers(otherPayStubItems);
 
         List<Long> earningFilter = Arrays.asList(
@@ -149,11 +151,16 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
         return Optional.of(payStubDTO);
     }
 
-    private Collection<? extends OtherPayStubItemDTO> getEmployeeAttendance(Long sysId, String year, String month) {
+    private Set<OtherPayStubItemDTO> getEmployeeAttendance(Long sysId, String year, String month) {
         String url = String.format(endpoint.getSystemGroupEmployeeAttendance(), sysId, year, month);
         AttendanceSG[] attendance = restTemplate.getForObject(url, AttendanceSG[].class);
+
+        List<Integer> attendanceFilter = Arrays.asList(
+                24, 192, 26, 28, 30, 32, 34, 239
+        );
+
         Set<OtherPayStubItemDTO> attendancePayStubItems = Arrays.stream(Objects.requireNonNull(attendance))
-                .filter(item -> true)
+                .filter(item -> attendanceFilter.contains(item.getAttendanceFactorID().intValue()))
                 .map(item -> {
                     OtherPayStubItemDTO otherPayStubItemDTO = new OtherPayStubItemDTO();
                     otherPayStubItemDTO.setId(item.getAttendanceFactorID());
