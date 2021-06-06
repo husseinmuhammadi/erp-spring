@@ -57,7 +57,7 @@ public class PayStubResource {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         EmployeeDTO employee = employeeService.findEmployeeByCode(userDetails.getUsername());
-        Optional<PayStubDTO> payStubDTO = service.findByEmployeeAndPayDate(employee, year + month);
+        Optional<PayStubDTO> payStubDTO = service.findByEmployeeAndPayDate(employee, year, month);
         return ResponseEntity.ok(payStubDTO);
     }
 

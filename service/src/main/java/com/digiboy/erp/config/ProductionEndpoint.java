@@ -28,6 +28,11 @@ public class ProductionEndpoint implements Endpoint {
     }
 
     @Override
+    public String getSystemGroupEmployeeAttendance() {
+        return "http://localhost:9086/api/v1/employees/%d/attendance/%s/%s";
+    }
+
+    @Override
     public String getSystemGroupPayStubPayItems() {
         return "http://localhost:9086/api/v1/paystubs/%s/paystubitems";
     }

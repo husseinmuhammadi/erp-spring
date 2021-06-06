@@ -3,6 +3,7 @@ package com.digiboy.erp.service;
 import com.digiboy.erp.api.PayStubService;
 import com.digiboy.erp.cfg.Endpoint;
 import com.digiboy.erp.dto.*;
+import com.digiboy.erp.dto.sg.AttendanceSG;
 import com.digiboy.erp.dto.sg.LoanSG;
 import com.digiboy.erp.dto.sg.PayStubItemSG;
 import com.digiboy.erp.dto.sg.PayStubSG;
@@ -57,10 +58,12 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
     private Endpoint endpoint;
 
     @Override
-    public Optional<PayStubDTO> findByEmployeeAndPayDate(EmployeeDTO employee, String payDate) {
+    public Optional<PayStubDTO> findByEmployeeAndPayDate(EmployeeDTO employee, String year, String month) {
         String url = String.format(endpoint.getSystemGroupEmployeePayStubs(), employee.getSysId());
         PayStubSG[] sgPayStubs = restTemplate.getForObject(url, PayStubSG[].class);
-        Optional<PayStubSG> sgPayStub = Arrays.stream(Objects.requireNonNull(sgPayStubs)).filter(payStubSG -> payStubSG.getIssueYearMonth().equals(payDate)).findFirst();
+        Optional<PayStubSG> sgPayStub = Arrays.stream(Objects.requireNonNull(sgPayStubs))
+                .filter(payStubSG -> payStubSG.getIssueYearMonth().equals(year + month))
+                .findFirst();
         if (sgPayStub.isEmpty())
             return Optional.empty();
 
@@ -71,7 +74,7 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
         PayStubDTO payStubDTO = new PayStubDTO();
         payStubDTO.setEmployeeCode(employee.getEmployeeCode());
         payStubDTO.setEmployeeName(employee.getFirstName() + " " + employee.getLastName());
-        payStubDTO.setPayDate(payDate);
+        payStubDTO.setPayDate(year + month);
 
         extractPayStubItem(sgPayStubItems, 7, payStubDTO::setNetPay);
         extractPayStubItem(sgPayStubItems, 12, payStubDTO::setTotalEarning);
@@ -93,6 +96,9 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
                 }).collect(Collectors.toSet());
         otherPayStubItems.add(extractLeaveBalance(sgPayStubItems));
         otherPayStubItems.add(extractLeaveUsedInCurrentMonth(sgPayStubItems));
+
+        otherPayStubItems.addAll(getEmployeeAttendance(employee.getSysId(), year, month));
+
         payStubDTO.setOthers(otherPayStubItems);
 
         List<Long> earningFilter = Arrays.asList(
@@ -125,6 +131,8 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
 
         String url3 = String.format(endpoint.getSystemGroupEmployeeLoans(), employee.getSysId());
         LoanSG[] sgLoans = restTemplate.getForObject(url3, LoanSG[].class);
+
+        String payDate = year + month;
         Set<LoanPayStubItemDTO> loanPayStubItems = Arrays.stream(Objects.requireNonNull(sgLoans))
                 .filter(item -> payDate.equals(item.getPaymentYearMonth()))
                 .map(item -> {
@@ -139,6 +147,21 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
         payStubDTO.setLoans(loanPayStubItems);
 
         return Optional.of(payStubDTO);
+    }
+
+    private Collection<? extends OtherPayStubItemDTO> getEmployeeAttendance(Long sysId, String year, String month) {
+        String url = String.format(endpoint.getSystemGroupEmployeeAttendance(), sysId, year, month);
+        AttendanceSG[] attendance = restTemplate.getForObject(url, AttendanceSG[].class);
+        Set<OtherPayStubItemDTO> attendancePayStubItems = Arrays.stream(Objects.requireNonNull(attendance))
+                .filter(item -> true)
+                .map(item -> {
+                    OtherPayStubItemDTO otherPayStubItemDTO = new OtherPayStubItemDTO();
+                    otherPayStubItemDTO.setId(item.getAttendanceFactorID());
+                    otherPayStubItemDTO.setTitle(item.getTitle());
+                    otherPayStubItemDTO.setAmount(item.getValue() / 60 + ":" + item.getValue() % 60);
+                    return otherPayStubItemDTO;
+                }).collect(Collectors.toSet());
+        return attendancePayStubItems;
     }
 
     @Override

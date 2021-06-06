@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface PayStubService extends GeneralService<PayStubDTO> {
     List<String> findAllHeadings();
 
-    Optional<PayStubDTO> findByEmployeeAndPayDate(EmployeeDTO employee, String payDate);
+    Optional<PayStubDTO> findByEmployeeAndPayDate(EmployeeDTO employee, String year, String month);
 
     List<String> findAllIssueYears(EmployeeDTO employee);
 }

@@ -28,6 +28,11 @@ public class DevelopmentEndpoint implements Endpoint {
     }
 
     @Override
+    public String getSystemGroupEmployeeAttendance() {
+        return "http://178.173.146.154:8086/api/v1/employees/%d/attendance/%s/%s";
+    }
+
+    @Override
     public String getSystemGroupPayStubPayItems() {
         return "http://178.173.146.154:8086/api/v1/paystubs/%s/paystubitems";
     }
