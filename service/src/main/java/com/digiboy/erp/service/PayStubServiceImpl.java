@@ -90,7 +90,7 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
         Set<OtherPayStubItemDTO> otherPayStubItems = new TreeSet<>(Comparator.comparing(OtherPayStubItemDTO::getId));
         otherPayStubItems.addAll(getEmployeeAttendance(employee.getSysId(), year, month));
         otherPayStubItems.add(extractLeaveBalance(sgPayStubItems));
-        otherPayStubItems.add(extractLeaveUsedInCurrentMonth(sgPayStubItems));
+        extractLeaveUsedInCurrentMonth(sgPayStubItems).ifPresent(otherPayStubItems::add);
         Set<OtherPayStubItemDTO> others = Arrays.stream(Objects.requireNonNull(sgPayStubItems))
                 .filter(item -> otherFilter.contains(item.getCompensationFactorId()))
                 .map(item -> {
@@ -186,13 +186,16 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
                 .ifPresent(consumer);
     }
 
-    private OtherPayStubItemDTO extractLeaveUsedInCurrentMonth(PayStubItemSG[] sgPayStubItems) {
+    private Optional<OtherPayStubItemDTO> extractLeaveUsedInCurrentMonth(PayStubItemSG[] sgPayStubItems) {
         OtherPayStubItemDTO leaveUsed = new OtherPayStubItemDTO();
         leaveUsed.setId(387L);
 
         Optional<PayStubItemSG> payStubItemSG = Arrays.stream(Objects.requireNonNull(sgPayStubItems))
                 .filter(item -> item.getCompensationFactorId() == 387)
                 .findFirst();
+
+        if (payStubItemSG.isEmpty())
+            return Optional.empty();
 
         payStubItemSG.map(PayStubItemSG::getTitle)
                 .ifPresent(leaveUsed::setTitle);
@@ -208,7 +211,7 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
                     Collections.reverse(result);
                 });
         leaveUsed.setAmount(StringUtils.join(result, ":"));
-        return leaveUsed;
+        return Optional.of(leaveUsed);
     }
 
     private OtherPayStubItemDTO extractLeaveBalance(PayStubItemSG[] sgPayStubItems) {
