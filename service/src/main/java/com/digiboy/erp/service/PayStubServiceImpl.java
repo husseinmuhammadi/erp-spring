@@ -10,6 +10,7 @@ import com.digiboy.erp.mapper.EntityMapper;
 import com.digiboy.erp.mapper.PayStubMapper;
 import com.digiboy.erp.repository.PayStubRepository;
 import com.digiboy.erp.to.PayStub;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -77,21 +78,21 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
         extractPayStubItem(sgPayStubItems, 13, payStubDTO::setTotalDeduction);
         extractPayStubItem(sgPayStubItems, 50, payStubDTO::setTotalLoan);
 
-        payStubDTO.setLeaveBalance(extractLeaveBalance(sgPayStubItems));
-
         List<Long> otherFilter = Arrays.asList(
-                64L, 110L, 111L, 113L, 116L, 121L, 187L, 386L, 387L, 394L, 399L, 426L, 458L
+                64L, 110L, 111L, 113L, 116L, 121L, 187L, 386L, 394L, 426L, 458L
         );
 
         Set<OtherPayStubItemDTO> otherPayStubItems = Arrays.stream(Objects.requireNonNull(sgPayStubItems))
                 .filter(item -> otherFilter.contains(item.getCompensationFactorId()))
                 .map(item -> {
                     OtherPayStubItemDTO otherPayStubItemDTO = new OtherPayStubItemDTO();
-                    otherPayStubItemDTO.setTitle(item.getTitle());
-                    otherPayStubItemDTO.setAmount(item.getAmount());
                     otherPayStubItemDTO.setId(item.getCompensationFactorId());
+                    otherPayStubItemDTO.setTitle(item.getTitle());
+                    otherPayStubItemDTO.setValue(String.valueOf(item.getAmount()));
                     return otherPayStubItemDTO;
                 }).collect(Collectors.toSet());
+        otherPayStubItems.add(extractLeaveBalance(sgPayStubItems));
+        otherPayStubItems.add(extractLeaveUsedInCurrentMonth(sgPayStubItems));
         payStubDTO.setOthers(otherPayStubItems);
 
         List<Long> earningFilter = Arrays.asList(
@@ -155,7 +156,36 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
                 .ifPresent(consumer);
     }
 
-    private String extractLeaveBalance(PayStubItemSG[] sgPayStubItems) {
+    private OtherPayStubItemDTO extractLeaveUsedInCurrentMonth(PayStubItemSG[] sgPayStubItems) {
+        OtherPayStubItemDTO leaveUsed = new OtherPayStubItemDTO();
+        leaveUsed.setId(387L);
+
+        Optional<PayStubItemSG> payStubItemSG = Arrays.stream(Objects.requireNonNull(sgPayStubItems))
+                .filter(item -> item.getCompensationFactorId() == 387)
+                .findFirst();
+
+        payStubItemSG.map(PayStubItemSG::getTitle)
+                .ifPresent(leaveUsed::setTitle);
+
+        List<String> result = new ArrayList<>();
+        payStubItemSG.map(PayStubItemSG::getAmount)
+                .ifPresent(value -> {
+                    result.add(String.format("%02d", value % 60));
+                    value = value / 60;
+                    result.add(String.format("%02d", value % 24));
+                    value = value / 24;
+                    result.add(String.format("%02d", value));
+                    Collections.reverse(result);
+                });
+        leaveUsed.setValue(StringUtils.join(result, ":"));
+        return leaveUsed;
+    }
+
+    private OtherPayStubItemDTO extractLeaveBalance(PayStubItemSG[] sgPayStubItems) {
+        OtherPayStubItemDTO leaveBalance = new OtherPayStubItemDTO();
+        ResourceBundle bundle = ResourceBundle.getBundle("paystub", new Locale("fa", "IR"));
+        leaveBalance.setId(399L);
+        leaveBalance.setTitle(bundle.getString("leave.balance"));
         StringBuilder builder = new StringBuilder();
         Arrays.stream(Objects.requireNonNull(sgPayStubItems))
                 .filter(item -> item.getCompensationFactorId() == 389)
@@ -171,6 +201,7 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
                 .filter(item -> item.getCompensationFactorId() == 393)
                 .findFirst().map(PayStubItemSG::getAmount)
                 .ifPresent(builder::append);
-        return builder.toString();
+        leaveBalance.setValue(builder.toString());
+        return leaveBalance;
     }
 }

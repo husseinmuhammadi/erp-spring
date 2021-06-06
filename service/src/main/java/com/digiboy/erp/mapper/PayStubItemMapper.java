@@ -30,8 +30,6 @@ public interface PayStubItemMapper extends EntityMapper<PayStubItem, PayStubItem
             return this.map((DeductionPayStubItem) payStubItem);
         } else if (payStubItem instanceof EarningPayStubItem) {
             return this.map((EarningPayStubItem) payStubItem);
-        } else if (payStubItem instanceof OtherPayStubItem) {
-            return this.map((OtherPayStubItem) payStubItem);
         } else {
             throw new MappingException("Error in mapping from PayStubItem to PayStubItemDTO");
         }
@@ -43,8 +41,6 @@ public interface PayStubItemMapper extends EntityMapper<PayStubItem, PayStubItem
             return this.map((DeductionPayStubItemDTO) payStubItemDTO);
         } else if (payStubItemDTO instanceof EarningPayStubItemDTO) {
             return this.map((EarningPayStubItemDTO) payStubItemDTO);
-        } else if (payStubItemDTO instanceof OtherPayStubItemDTO) {
-            return this.map((OtherPayStubItemDTO) payStubItemDTO);
         } else {
             throw new MappingException("Error in mapping from PayStubItemDTO to PayStubItem");
         }
