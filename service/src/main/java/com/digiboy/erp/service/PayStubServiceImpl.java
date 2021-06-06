@@ -217,20 +217,22 @@ public class PayStubServiceImpl extends GeneralServiceImpl<PayStub, PayStubDTO> 
         leaveBalance.setId(399L);
         leaveBalance.setTitle(bundle.getString("leave.balance"));
         StringBuilder builder = new StringBuilder();
-        Arrays.stream(Objects.requireNonNull(sgPayStubItems))
-                .filter(item -> item.getCompensationFactorId() == 389)
-                .findFirst().map(PayStubItemSG::getAmount)
-                .ifPresent(builder::append);
-        builder.append(":");
-        Arrays.stream(Objects.requireNonNull(sgPayStubItems))
-                .filter(item -> item.getCompensationFactorId() == 391)
-                .findFirst().map(PayStubItemSG::getAmount)
-                .ifPresent(builder::append);
-        builder.append(":");
-        Arrays.stream(Objects.requireNonNull(sgPayStubItems))
-                .filter(item -> item.getCompensationFactorId() == 393)
-                .findFirst().map(PayStubItemSG::getAmount)
-                .ifPresent(builder::append);
+        builder.append(
+                Arrays.stream(Objects.requireNonNull(sgPayStubItems))
+                        .filter(item -> item.getCompensationFactorId() == 389)
+                        .findFirst().map(PayStubItemSG::getAmount)
+                        .orElse(0L)
+        ).append(":").append(
+                Arrays.stream(Objects.requireNonNull(sgPayStubItems))
+                        .filter(item -> item.getCompensationFactorId() == 391)
+                        .findFirst().map(PayStubItemSG::getAmount)
+                        .orElse(0L)
+        ).append(":").append(
+                Arrays.stream(Objects.requireNonNull(sgPayStubItems))
+                        .filter(item -> item.getCompensationFactorId() == 393)
+                        .findFirst().map(PayStubItemSG::getAmount)
+                        .orElse(0L)
+        );
         leaveBalance.setAmount(builder.toString());
         return leaveBalance;
     }
