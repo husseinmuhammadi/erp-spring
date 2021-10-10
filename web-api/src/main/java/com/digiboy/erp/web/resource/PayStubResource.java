@@ -73,10 +73,12 @@ public class PayStubResource {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         logger.info("Finding employee by code: {}", userDetails.getUsername());
         EmployeeDTO employee = employeeService.findEmployeeByCode(userDetails.getUsername());
-        if (employee == null)
+        if (employee == null) {
             logger.warn("No employee found for code: {}", userDetails.getUsername());
-        else
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        } else {
             logger.info("Employee found, {}", employee.getEmployeeCode());
+        }
         List<String> issueYears = service.findAllIssueYears(employee);
         return ResponseEntity.ok(issueYears);
     }
